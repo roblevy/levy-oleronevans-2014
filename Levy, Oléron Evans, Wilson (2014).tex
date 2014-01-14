@@ -72,12 +72,12 @@ These are, along with the WIOD which is used in the present model, EORA \parenci
 \section{The System Description} \label{sec:system}
 \begin{table}
 \begin{center}
-\begin{tabular}{cl}
+\begin{tabular}{cl}\toprule
 $f_s^{(i)}$ & final demand on sector $s$ in country $i$\\
 $n_s^{(i)}$ & investment of sector $s$ in country $i$\\
 $e_s^{(i)}$ & export of sector $s$ in country $i$\\
 $z_{s,t}^{\dagger(i)}$ & intermediate demand on domestic sector $s$ by sector $t$ in country $i$\\
-$z_{s,t}^{*(i)}$ & intermediate demand on import sector $s$ by sector $t$ in country $i$
+$z_{s,t}^{*(i)}$ & intermediate demand on import sector $s$ by sector $t$ in country $i$\\\bottomrule
 \end{tabular}
 \end{center}
 \caption{Quantities from data which define a country's economy}\label{tbl:cvars}
@@ -90,21 +90,29 @@ Table \ref{tbl:cvars} shows the quantities, taken from data published by the WIO
 Note that for clarity, no time subscript is added. In future time-series analyses such a subscript would have to be added.
 
 \subsection{Input-Output Tables} \label{sec:iots}
-Input-output is, at its heart, an accounting methodology. By simple summation total production of sector $s$ in country $i$ can be defined as the sum of all intermediate supply, plus supply to final demand, investment and export:
+Input-output is, at its heart, an accounting methodology.
+The products produced by and imported into a given country in a given year must be either: used as inputs to other sectors, `intermediate demand'; supplied to the `final demand' of consumers and the government; invested; or exported.
+The total amount imported and produced must equal the amount used, consumed, invested or exported for each sector.
+
+By simple summation, total production of sector $s$ in country $i$ can be defined as the sum of all intermediate supply, plus supply to final demand, investment and export:
 \begin{equation}\label{eqn:x}
-x_s^{(i)}=\sum\limits_{t}z_{s,t}^{\dagger(i)} + f_s^{\dagger} + n_s^{\dagger} + e_s
+x_s^{(i)}=\sum\limits_{t}z_{s,t}^{\dagger(i)} + f_s^{\dagger(i)} + n_s^{\dagger(i)} + e_s^{(i)}
 \end{equation}
-and the total import of sector $s$ in country $i$ as the sum of all intermediate supply by imported goods, plus demand for and investment of imported goods:
+where $z_{s,t}^{\dagger(i)}$ is the intermediate flow from domestic sector $s$ to sector $t$ in country $i$, $f_s^{\dagger(i)}$ is final demand for domestic sector $s$, $n_s^{\dagger(i)}$ is investment and $e_s^{(i)}$ are exports.
+The total import of sector $s$ in country $i$ is the sum of all intermediate supply by imported goods, plus demand for and investment of imported goods (in this iteration of the model, no imported goods are exported; that is, \textit{re-exports} are set to zero):
 \begin{equation}\label{eqn:m}
 m_s^{(i)}=\sum\limits_{t}z_{s,t}^{*(i)} + f_s^* + n_s^*
 \end{equation}
-By assembling the data values describing a country in a particular arrangement, an input-output table can be constructed, $\boldsymbol{T}^{(i)}$, as described by \textcite{Miller1985}.
+By assembling these data values in a particular arrangement, an input-output table can be constructed, $\boldsymbol{T}^{(i)}$, as described by \textcite{Miller1985}.
 Neglecting the $(i)$ superscript for clarity, the input-output table (IOT) is defined as follows:
 
 \begin{equation}\label{eqn:T}
-\begin{array}{rcc}
-\boldsymbol{T} & = & \begin{array}{rc}
-\begin{array}{cc} \hspace*{17mm} & \mbox{Sector} \end{array} & \begin{array}{ccccccc} 1 & \mathellipsis & s & \mbox{F.D.} & \mbox{Inv} & \mbox{Exp} & \mbox{Tot} \end{array} \vspace*{2mm} \\
+\begin{array}{rc}
+\boldsymbol{T} = & 
+\begin{array}{rc}
+\begin{array}{cc} & \mbox{Sector} \end{array} 
+& 
+\begin{array}{cccc} \hspace*{4mm}1 & \mathellipsis & s & \hspace*{2mm} \mbox{F.D. Inv Exp Tot} \end{array} \vspace*{2mm} \\
 \begin{array}{r}
 \begin{array}{rc}
 \mbox{Domestic} & \left\{ \begin{array}{c}
@@ -151,7 +159,8 @@ In matrix form, $\boldsymbol{T}$ may be written:
 
 \subsection{A Country Model}\label{sec:countries}
 In the standard input-output model, each country is described by the input-output table described in section \ref{sec:iots} above.
-From the elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, each sector has a complete `recipe' for making its output, in terms of the quantities of each good used as input, both domestic and imported.
+From the elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, each sector has a complete `recipe' for making its output, in terms of the quantities of each good used as input, both domestic and imported. Throughout this section, the country superscript will be excluded except when required for clarity.
+
 \subsubsection*{Technical Coefficients}\label{sec:techcoeffs}
 By dividing by total output, we can arrive at a set of \textit{technical coefficients} which define the input required per unit output.
 The amount of good $r$ required by sector $s$ to produce a single unit of output is thus:
@@ -217,9 +226,16 @@ and hence of $\boldsymbol{m}$ from equation \eqref{eqn:importratio}:
 \boldsymbol{\hat{d}}\boldsymbol{x}\label{eqn:mmodel}
 \end{equation}
 where $\boldsymbol{\hat{d}}$ is an $s \times s$ matrix whose diagonal elements are the import ratios, $d_s$, and $\boldsymbol{I}$ is the identity matrix.
+Having calculated the total production, $\boldsymbol{x}$, in equation \eqref{eqn:xmodel}, the inter-sector flows, $\boldsymbol{Z}$, can be recovered as follows:
+\begin{align}
+\boldsymbol{Z}& = \boldsymbol{A}\boldsymbol{\hat{x}}\nonumber\\
+\boldsymbol{Z^\dagger}& = \boldsymbol{Z}\boldsymbol{\hat{d}}\\
+\boldsymbol{Z^*}& = \boldsymbol{Z}
+(\boldsymbol{I} - \boldsymbol{\hat{d}})
+\end{align}
 
-Also due to this assumption, only $s$ elements of final demand and investment need to be estimated, rather than the $2s$ elements shown in equation \eqref{eqn:T}.
-In a 35 sector model, such as that used by the WIOD, this reduces the number of flows to be estimated from $70 \times 37 = 2590$ (37 being the 35 sector columns plus $f$ and $n$) to $35 \times 38 = 1330$ (the columns plus $f$, $n$ and the import ratios).
+\noindent Additional benefits to the import ratios assumption are that final demand and investment have only $s$ elements , rather than the $2s$ elements shown in equation \eqref{eqn:T}.
+In a 35 sector model, such as that used by the WIOD, the number of data points to be estimated in order to add a new country thus reduces from $70 \times 37 = 2590$ (37 being the 35 sector columns plus $f$ and $n$) to $35 \times 38 = 1330$ (the columns plus $f$, $n$ and the import ratios).
 
 \subsection{An International Trade Model}\label{sec:trade}
 In standard inter-regional input-output modelling (IRIO), each sector in each country is explicit about which countries it gets its imports from. 
@@ -244,10 +260,11 @@ and total export demand in country $i$ is therefore:
 \begin{equation}\label{eqn:emodel}
 e_s^{(i)} = \sum_k{p_s^{(i,k)}m_s^{(k)}}
 \end{equation}
-\noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$ of all sectors in all countries, and every trade flow $y_s^{(i,j)}$ given a set of technical coefficients, $a_{r,s}^{(i)}$, import ratios, $d_s^{(i)}$, trade propensities, $d_s^{(i,j)}$, and final demands\footnote{In the first iteration of the model investments, $n_s^{(i)}$ are ignored. Data is provided by the WIOD for this but is not used in this iteration of the model.}, $f_s^{(i)}$.
-
+\noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$, of all sectors in all countries; the intermediate input-output flows, $z_{s,t}^{\dagger(i)}$ and $z_{s,t}^{*(i)}$; imports, $m_s^{(i)}$; exports, $e_s^{(i)}$; and all trade flows, $y_s^{(i,j)}$, given a set of technical coefficients, $a_{r,s}^{(i)}$; import ratios, $d_s^{(i)}$; trade propensities, $p_s^{(i,j)}$; and final demands\footnote{In the first iteration of the model, investments, $n_s^{(i)}$, are set to zero. 
+Data is provided by the WIOD for investments but it is not used in this iteration of the model.}, $f_s^{(i)}$. For an exogenous change in any of the latter four parameters, all of the former six groups of flow can be found.
 
 \section{The Model Algorithm}\label{sec:algorithm}
+
 
 \section{Results}\label{sec:results}
 
