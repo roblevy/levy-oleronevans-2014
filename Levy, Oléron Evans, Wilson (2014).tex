@@ -1,4 +1,5 @@
 \documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -8,11 +9,18 @@
 \usepackage{mathtools}
 \usepackage{booktabs}
 \usepackage[format=hang]{caption}
-\usepackage[font=footnotesize]{subcaption}
+\usepackage{subfigure}
+\usepackage{textcomp} % For the cent symbol
+%\usepackage[font=footnotesize]{subcaption}
 \usepackage{varioref}
 \captionsetup{justification=justified, singlelinecheck=true}
 \usepackage[backend=biber,url=false,doi=false,style=authoryear]{biblatex}
 \addbibresource{D:/Rob/Dropbox/PhD/Writing/bibtex/Zotero - IO Modelling.bib}
+\addbibresource{D:/Rob/Dropbox/PhD/Writing/bibtex/Zotero - Trade.bib}
+\addbibresource{D:/Rob/Dropbox/PhD/Writing/bibtex/Zotero - Networks.bib}
+%\addbibresource{/home/rob/Dropbox/PhD/Writing/bibtex/Zotero - IO Modelling.bib}
+%\addbibresource{/home/rob/Dropbox/PhD/Writing/bibtex/Zotero - Trade.bib}
+%\addbibresource{/home/rob/Dropbox/PhD/Writing/bibtex/Zotero - Networks.bib}
 \usepackage{authblk}
 \usepackage{attrib}
 %\bibliographystyle{elsarticle-harv}
@@ -233,7 +241,7 @@ Having calculated the total production, $\boldsymbol{x}$, in equation \eqref{eqn
 \boldsymbol{Z}& = \boldsymbol{A}\boldsymbol{\hat{x}}\nonumber\\
 \boldsymbol{Z^\dagger}& = \boldsymbol{Z}\boldsymbol{\hat{d}}\\
 \boldsymbol{Z^*}& = \boldsymbol{Z}
-(\boldsymbol{I} - \boldsymbol{\hat{d}})
+(\boldsymbol{I} - \boldsymbol{\hat{d}}) \label{eqn:zstar}
 \end{align}
 Additional benefits to the import ratios assumption are that final demand and investment have only $s$ elements , rather than the $2s$ elements shown in equation \eqref{eqn:T}.
 In a 35 sector model, such as that used by the WIOD, the number of data points to be estimated in order to add a new country thus reduces from $70 \times 37 = 2590$ (37 being the 35 sector columns plus $f$ and $n$) to $35 \times 38 = 1330$ (the columns plus $f$, $n$ and the import ratios).
@@ -354,7 +362,129 @@ If they do balance, the iteration is complete. If not, we continue to iterate be
 \end{figure}
 
 \section{Analysis}\label{sec:analysis}
-Recall from section \ref{sec:importratios} above, that goods arriving at the shores of an importing country are put into a warehouse along with domestically produced goods at which point the two become indistinguishable. Under the additional assumption that domestic sectors take from this warehouse by method of a random sample, the fraction of goods in each sample from abroad will be constant, as will the fraction of imported goods from each exporter. These fractions will be set by the import ratios and import propensities respectively. 
+A simple way to find the sectors most important to the global economy is to reduce by \$1 final demand for each sector in turn, measuring the total effect on all total productions, $x_s^{(i)}$, in the model.
+
+Figure \ref{tbl:delta_total_output} shows the top 10 biggest sectors in terms of their impact on the total output of every other sector in every other country.
+The vehicles sector in China is the most important sector by this measure, a \$1 reduction in final demand in this sector leading to a \$98.35 reduction in total output worldwide. 
+Figure \ref{tbl:delta_chn_veh} shows the ten countries most affected by Chinese vehicles, as measured by the total impact on all sectors.
+China itself tops this table with a \$9.55 reduction in total output due to a \$1 reduction in output from the vehicles sector.
+In figure \ref{tbl:chinese_response_to_chn_vec}, the response of the Chinese economy to this reduction in final demand for Chinese vehicles is broken down by sector.
+The electricals sector is the most strongly affected, with a \$1.62 reduction in total output. Also strongly affected are the vehicles sector itself (\$1.53), metals (\$1.44) and chemicals (\$0.95).
+
+It might be assumed from figure \ref{tbl:chinese_response_to_chn_vec} that the electricals industry is heavily demanded by the vehicles industry, but the relevant technical coefficient is only 0.06.
+It hence takes just 6\textcent{}  of electricals to make a dollar's worth of vehicles, compared to almost 12\textcent{} of metals.
+The reason the electricals sector is so sensitive to changes in final demand in the vehicles sector can be seen in table \ref{tbl:chn_electricals}.
+Electricals is the most demanding sector of the whole Chinese economy, requiring 82\textcent{} of input for each \$1 of output.
+This analysis highlights the fact that the present model is capable of uncovering effects beyond those immediately obvious from an inspection of, for example, the technical coefficients alone.
+
+\begin{figure}
+	\centering
+	\subfigure[response summed across all countries/sectors]
+	{
+		\begin{tabular}{llr}
+		\toprule
+		Sector & Country & $\Delta$\\
+		\midrule
+		      Vehicles &            China & -98.35 \\
+		        Metals &            Korea & -98.27 \\
+		      Vehicles &            Korea & -98.27 \\
+		     Plastics &            China & -98.26 \\
+		      Textiles &            China & -98.24 \\
+		       Leather &            China & -98.18 \\
+		     Utilities &            Korea & -98.18 \\
+		          Wood &            China & -98.13 \\
+		  Construction &            China & -98.11 \\
+		      Vehicles &            Japan & -98.10 \\
+		\bottomrule
+		\end{tabular}
+		\label{tbl:delta_total_output}
+	}
+	\subfigure[response to vehicles sector in China]
+	{
+		\begin{tabular}{lr}
+		\toprule
+		Country &     $\Delta$ \\
+		\midrule
+		China      & -9.56 \\
+		Japan      & -8.73 \\
+		USA      & -6.95 \\
+		Italy      & -6.38 \\
+		Germany      & -5.91 \\
+		Poland      & -4.91 \\
+		Czech Rep.      & -4.55 \\
+		Korea      & -4.31 \\
+		France      & -4.22 \\
+		Brazil      & -4.18 \\
+		\bottomrule
+		\end{tabular}
+		\label{tbl:delta_chn_veh}
+	}
+	\subfigure[response of Chinese sectors to vehicles sector in China]
+	{
+		\begin{tabular}{lr}
+		\toprule
+		sector & $\Delta$ \\
+		\midrule
+		Electricals       & -1.62 \\
+		Vehicles          & -1.53 \\
+		Metals            & -1.44 \\
+		Chemicals         & -0.95 \\
+		Machinery         & -0.54 \\
+		Mining            & -0.42 \\
+		Plastics          & -0.39 \\
+		Utilities         & -0.35 \\
+		Textiles          & -0.23 \\
+		Wholesale Trade   & -0.22 \\
+		\bottomrule	
+		\end{tabular}
+		\label{tbl:chinese_response_to_chn_vec}
+	}
+	\caption{Response ($\Delta$) to a \$1 reduction in final demand for the shown sector, in terms of difference in the total output, $x$, of other sectors. All tables show the largest 10 only.}
+\end{figure}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Sector &     $\sum{a}$ \\
+\midrule
+Electricals  &  0.82 \\
+Plastics     &  0.81 \\
+Fuel         &  0.80 \\
+Vehicles     &  0.80 \\
+Leather      &  0.80 \\
+Metals       &  0.79 \\
+Textiles     &  0.79 \\
+Chemicals    &  0.79 \\
+Wood         &  0.77 \\
+Construction &  0.77 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{The sum of all technical coefficients, $\sum_r{a_{rs}^{(CHN)}}, s=\text{electricals}$, for each sector of the Chinese economy. Only the largest 10 are shown.}\label{tbl:chn_electricals}
+\end{table}
+
+\subsection*{A unified network approach}
+The flow of goods between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{Nystuen1961,Serrano2003,Bhattacharya2008,Baskaran2011}.
+Similarly with the sector-sector flows which constitute an input-output model \parencite{Blochl2011}.
+Network science has developed useful ways to analyse the sort of weighted, directed networks which the constitute the present model, but a single network representation is required which combines the international and the sub-national networks.
+
+Recall from section \ref{sec:importratios} above, that goods arriving at the shores of an importing country are put into a warehouse along with domestically produced goods, at which point the two become indistinguishable.
+Under the additional assumption that domestic sectors take from this warehouse by method of a random sample, the fraction of goods in each sample from abroad will be constant, as will the fraction of imported goods from each exporter.
+These fractions will be set by the import ratios and import propensities respectively.
+
+This additional assumption allows us to specify a complete system of flows, $y_{rs}^{(i,j)}$, from sector $r$ in country $i$ to sector $s$ in country $j$:
+
+\begin{equation}\label{eqn:y_rsij}
+y_{rs}^{(i,j)} = a_{rs}^{(j)} x_{s}^{(j)} d_{r}^{(j)} p_{r}^{(i,j)} 
+\end{equation}
+Equation \eqref{eqn:y_rsij} can be understood as follows:
+sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s good to produce its total output;
+a fraction $d_{r}^{(j)}$ of this will be supplied by imports;
+a fraction $p_{r}^{(i,j)}$ of these imports will come from country $i$.
+
+Along with the sector-to-sector flows given by equation \eqref{eqn:zstar}, this allows the representation of all the flows in the present model as a single network, and standard network analysis techniques can then be used.
+
 \section{Results}\label{sec:results}
 
 \section{Conclusions}\label{sec:conclusions}
