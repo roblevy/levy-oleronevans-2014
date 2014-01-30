@@ -362,20 +362,31 @@ If they do balance, the iteration is complete. If not, we continue to iterate be
 \end{figure}
 
 \section{Analysis}\label{sec:analysis}
-A simple way to find the sectors most important to the global economy is to reduce by \$1 final demand for each sector in turn, measuring the total effect on all total productions, $x_s^{(i)}$, in the model.
+A simple way to find the sectors most important to the global economy is to reduce by \$1 final demand for each sector in turn, measuring the effect of the other countries and sectors in the model.
 
-Figure \ref{tbl:delta_total_output} shows the top 10 biggest sectors in terms of their impact on the total output of every other sector in every other country.
+Figure \ref{tbl:delta_total_output} shows the 10 largest sectors in terms of their impact on the total output, $x_s^{(i)}$,  of every other sector in every other country.
 The vehicles sector in China is the most important sector by this measure, a \$1 reduction in final demand in this sector leading to a \$98.35 reduction in total output worldwide. 
 Figure \ref{tbl:delta_chn_veh} shows the ten countries most affected by Chinese vehicles, as measured by the total impact on all sectors.
 China itself tops this table with a \$9.55 reduction in total output due to a \$1 reduction in output from the vehicles sector.
-In figure \ref{tbl:chinese_response_to_chn_vec}, the response of the Chinese economy to this reduction in final demand for Chinese vehicles is broken down by sector.
+In figure \ref{tbl:chinese_response_to_chn_vec}, the response of the Chinese economy is broken down by sector.
 The electricals sector is the most strongly affected, with a \$1.62 reduction in total output. Also strongly affected are the vehicles sector itself (\$1.53), metals (\$1.44) and chemicals (\$0.95).
 
 It might be assumed from figure \ref{tbl:chinese_response_to_chn_vec} that the electricals industry is heavily demanded by the vehicles industry, but the relevant technical coefficient is only 0.06.
 It hence takes just 6\textcent{}  of electricals to make a dollar's worth of vehicles, compared to almost 12\textcent{} of metals.
-The reason the electricals sector is so sensitive to changes in final demand in the vehicles sector can be seen in table \ref{tbl:chn_electricals}.
-Electricals is the most demanding sector of the whole Chinese economy, requiring 82\textcent{} of input for each \$1 of output.
-This analysis highlights the fact that the present model is capable of uncovering effects beyond those immediately obvious from an inspection of, for example, the technical coefficients alone.
+Furthermore, metals is more demanded by the Chinese economy as a whole, requiring \$1.06 to make one dollar of every sector, against 77\textcent{} of electricals.
+
+
+\subsection*{A random `hopper'}
+Consider the problem of finding routes which products in the model might take to get from sector $r$ in country $j$ to sector $s$ in country $i$.
+A random walker, or `hopper', will starting in $r$, and first decide whether to hop to another sector in $j$ or to hop abroad. The probability that the hopper hops abroad is given by the import propensity, $d_r^{(j)}$.
+If hopping domestically, the hopper hops randomly to another sector, $q$, with probability proportional to the technical coefficient $a_{qr}^{(j)}$.
+The coefficient $a_{rr}^{(j)}$ is set to zero to avoid paths involving sector $r$ itself.
+If hopping abroad, the hopper arrives in country $k$ with a probability proportional to the import propensity $p_r^{(k,j)}$.
+
+The hopper hops in this manner for some fixed, arbitrary number of hops.
+If the hopper arrives at the destination sector, $s$ in country $i$ within this number of hops, the route taken is recorded.
+When either the destination is reached or the maximum number of hops is exceeded, the hopper starts again from sector $r$ in country $j$.
+
 
 \begin{figure}
 	\centering
@@ -442,27 +453,27 @@ This analysis highlights the fact that the present model is capable of uncoverin
 	\caption{Response ($\Delta$) to a \$1 reduction in final demand for the shown sector, in terms of difference in the total output, $x$, of other sectors. All tables show the largest 10 only.}
 \end{figure}
 
-\begin{table}
-\begin{center}
-\begin{tabular}{lr}
-\toprule
-Sector &     $\sum{a}$ \\
-\midrule
-Electricals  &  0.82 \\
-Plastics     &  0.81 \\
-Fuel         &  0.80 \\
-Vehicles     &  0.80 \\
-Leather      &  0.80 \\
-Metals       &  0.79 \\
-Textiles     &  0.79 \\
-Chemicals    &  0.79 \\
-Wood         &  0.77 \\
-Construction &  0.77 \\
-\bottomrule
-\end{tabular}
-\end{center}
-\caption{The sum of all technical coefficients, $\sum_r{a_{rs}^{(CHN)}}, s=\text{electricals}$, for each sector of the Chinese economy. Only the largest 10 are shown.}\label{tbl:chn_electricals}
-\end{table}
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{lr}
+%\toprule
+%Sector &     $\sum{a}$ \\
+%\midrule
+%Electricals  &  0.82 \\
+%Plastics     &  0.81 \\
+%Fuel         &  0.80 \\
+%Vehicles     &  0.80 \\
+%Leather      &  0.80 \\
+%Metals       &  0.79 \\
+%Textiles     &  0.79 \\
+%Chemicals    &  0.79 \\
+%Wood         &  0.77 \\
+%Construction &  0.77 \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+%\caption{The sum of all technical coefficients, $\sum_r{a_{rs}^{(CHN)}}, s=\text{electricals}$, for each sector of the Chinese economy. Only the largest 10 are shown.}\label{tbl:chn_electricals}
+%\end{table}
 
 \subsection*{A unified network approach}
 The flow of goods between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{Nystuen1961,Serrano2003,Bhattacharya2008,Baskaran2011}.
@@ -476,7 +487,7 @@ These fractions will be set by the import ratios and import propensities respect
 This additional assumption allows us to specify a complete system of flows, $y_{rs}^{(i,j)}$, from sector $r$ in country $i$ to sector $s$ in country $j$:
 
 \begin{equation}\label{eqn:y_rsij}
-y_{rs}^{(i,j)} = a_{rs}^{(j)} x_{s}^{(j)} d_{r}^{(j)} p_{r}^{(i,j)} 
+y_{rs}^{(i,j)} = p_{r}^{(i,j)} d_{r}^{(j)} a_{rs}^{(j)} x_{s}^{(j)}
 \end{equation}
 Equation \eqref{eqn:y_rsij} can be understood as follows:
 sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s good to produce its total output;
@@ -484,8 +495,6 @@ a fraction $d_{r}^{(j)}$ of this will be supplied by imports;
 a fraction $p_{r}^{(i,j)}$ of these imports will come from country $i$.
 
 Along with the sector-to-sector flows given by equation \eqref{eqn:zstar}, this allows the representation of all the flows in the present model as a single network, and standard network analysis techniques can then be used.
-
-\section{Results}\label{sec:results}
 
 \section{Conclusions}\label{sec:conclusions}
 
