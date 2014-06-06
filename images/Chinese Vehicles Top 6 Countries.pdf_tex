@@ -1,0 +1,183 @@
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'Chinese Vehicles Top 6 Countries.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{692.8bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.97113164)%
+    \put(0,0){\includegraphics[width=\unitlength]{Chinese Vehicles Top 6 Countries.pdf}}%
+    \put(0.51032387,0.47507995){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.82180656,0.92219423){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Communications}}}%
+    \put(0.50201293,0.48769724){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Retail Trade}}}%
+    \put(0.37925578,0.68677725){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.50740379,0.49390062){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Real Estate}}}%
+    \put(0.23013859,0.25432384){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.39782074,0.40029826){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Agriculture}}}%
+    \put(0.92058434,0.89750319){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Real Estate}}}%
+    \put(0.66364092,0.33501527){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.42874933,0.03727552){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.44382788,0.47107297){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.76242693,0.32638922){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.47165509,0.12854401){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.33119802,0.82602578){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.85634872,0.35165151){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.89921412,0.41048635){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.51728453,0.11846555){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.44477798,0.65247711){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.70025575,0.3864831){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.72611068,0.33378405){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.75857537,0.84948397){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.51421306,0.44926254){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.12568704,0.24795103){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Manufacturing}}}%
+    \put(0.29164412,0.85206298){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Other Services}}}%
+    \put(0.48203865,0.22694149){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.34858066,0.85594407){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.30960726,0.733384){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.54523882,0.49064803){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.77956284,0.79025833){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.57174371,0.49597841){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Transport Services}}}%
+    \put(0.83206072,0.82347241){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.03844516,0.2249333){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.81603132,0.28845){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.33448576,0.42715373){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.54905161,0.44996246){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.39738599,0.75472037){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.87657674,0.7445406){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.4469554,0.78962007){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicle Trade}}}%
+    \put(0.16802384,0.42665046){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.49995828,0.83739115){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Hospitality}}}%
+    \put(0.69239355,0.46150625){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.48688099,0.51015688){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.69464298,0.71814802){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Food}}}%
+    \put(0.92798541,0.76886){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.63297251,0.1581966){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wood}}}%
+    \put(0.40298727,0.87138235){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.75822605,0.3778864){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.28524131,0.27791564){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Real Estate}}}%
+    \put(0.45856523,0.84327502){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.09188457,0.17492319){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.29005042,0.79682042){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.52015329,0.50099967){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.14609307,0.23771364){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Financial Services}}}%
+    \put(0.36972328,0.40457573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Food}}}%
+    \put(0.53783605,0.52026353){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.99659293,0.74920863){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.77016797,0.87151044){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.8277432,0.89353077){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Other Services}}}%
+    \put(0.50758216,0.8996602){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Food}}}%
+    \put(0.25076705,0.20231421){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Communications}}}%
+    \put(0.62043283,0.57929411){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Food}}}%
+    \put(0.44033486,0.17588422){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.41092672,0.13034246){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.96619701,0.67785083){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.8153133,0.32819474){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Leather}}}%
+    \put(0.48348374,0.05818082){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.16890572,0.45256818){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.89065671,0.85414701){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.261765,0.41332268){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.73877553,0.40365545){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.88345954,0.47420364){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Communications}}}%
+    \put(0.69824314,0.06040767){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Textiles}}}%
+    \put(0.78315545,0.72454619){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.4806894,0.1684197){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Mining}}}%
+    \put(0.4656043,0.00051839){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Business Services}}}%
+    \put(0.57473492,0.53440483){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.05310125,0.43699878){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Transport Services}}}%
+    \put(0.7935425,0.42845853){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.67134964,0.69359275){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Agriculture}}}%
+    \put(0.34503477,0.12048134){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.09980138,0.44327981){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.25268749,0.32057365){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Retail Trade}}}%
+    \put(0.40770563,0.06633602){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Retail Trade}}}%
+    \put(0.72001058,0.10789074){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Agriculture}}}%
+    \put(0.61372779,0.56880723){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Agriculture}}}%
+    \put(0.24054465,0.7578871){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Financial Services}}}%
+    \put(0.42910684,0.28999276){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.35448248,0.80806877){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.58228287,0.62421242){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Construction}}}%
+    \put(0.89788137,0.68243309){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.72043081,0.25249876){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Chemicals}}}%
+    \put(0.31580246,0.85766697){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Construction}}}%
+    \put(0.12125086,0.37437184){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wholesale Trade}}}%
+    \put(0.59578376,0.59882089){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.60209637,0.54224114){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Wood}}}%
+    \put(0.48759404,0.46516212){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.52891612,0.69107048){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Minerals}}}%
+    \put(0.36692242,0.65778156){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Real Estate}}}%
+    \put(0.55165955,0.56314418){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.21469707,0.72271151){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Water Transport}}}%
+    \put(0.06781936,0.28701323){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.20350541,0.42998912){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Minerals}}}%
+    \put(0.31225393,0.40129816){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicle Trade}}}%
+    \put(0.29205572,0.46999949){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.50354554,0.54145358){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Other Services}}}%
+    \put(0.47514854,0.70152388){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Electricals}}}%
+    \put(0.66176926,0.38153595){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Financial Services}}}%
+    \put(0.51520369,0.57174117){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Financial Services}}}%
+    \put(0.74425155,0.12997271){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Food}}}%
+    \put(0.53197588,0.41971135){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.49767425,0.19157405){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Fuel}}}%
+    \put(0.45480071,0.40703663){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.46292629,0.55377539){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Textiles}}}%
+    \put(0.19716775,0.3918171){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Utilities}}}%
+    \put(0.607726,0.36228505){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Paper}}}%
+    \put(0.8685503,0.90563779){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Financial Services}}}%
+    \put(0.75747714,0.50543059){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Minerals}}}%
+    \put(0.34266354,0.61214756){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Vehicles}}}%
+    \put(0.15278499,0.29914319){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Metals}}}%
+    \put(0.81245725,0.85724051){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Inland Transport}}}%
+    \put(0.73330299,0.75038997){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Plastics}}}%
+    \put(0.70470478,0.78066355){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Public Services}}}%
+    \put(0.42901102,0.594974){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{Machinery}}}%
+    \put(0.30656485,0.48246708){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Germany}}}%
+    \put(0.24072544,0.04320718){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Poland}}}%
+    \put(0.02263233,0.47939339){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Italy}}}%
+    \put(0.18311593,0.6748542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Japan}}}%
+    \put(0.75509597,0.67691167){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{USA}}}%
+    \put(0.80036058,0.22220813){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{China}}}%
+  \end{picture}%
+\endgroup%
