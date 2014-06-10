@@ -373,118 +373,112 @@ If they do balance, the iteration is complete. If not, we continue to iterate be
 \end{figure}
 
 \section{Analysis}\label{sec:analysis}
-A simple way to find the sectors most important to the global economy is to reduce by \$1 final demand for each sector in turn, measuring the effect of the other countries and sectors in the model.
+The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's good.
+Since the WIOD reports goods flows in millions of US dollars (\$M), this will also be the unit of all the following analysis.
 
-Figure \ref{tbl:delta_total_output} shows the 10 largest sectors in terms of their impact on the total output, $x_s^{(i)}$,  of every other sector in every other country.
-The vehicles sector in China is the most important sector by this measure, a \$1 reduction in final demand in this sector leading to a \$2.31 reduction in total output worldwide. 
-Figure \ref{tbl:delta_chn_veh} shows the ten countries most affected by Chinese vehicles, as measured by the total impact on all sectors.
-China itself tops this table with a \$9.55 reduction in total output due to a \$1 reduction in output from the vehicles sector.
-In figure \ref{tbl:chinese_response_to_chn_vec}, the response of the Chinese economy is broken down by sector.
-The electricals sector is the most strongly affected, with a \$1.62 reduction in total output. Also strongly affected are the vehicles sector itself (\$1.53), metals (\$1.44) and chemicals (\$0.95).
+A simple way to measure the efficiency of a sector is to reduce final demand for the goods of that sector by one unit, and measure the response of each other sector in the model. We can formalise the final-demand change in sector $s$ in country $i$ as:
 
-It might be assumed from figure \ref{tbl:chinese_response_to_chn_vec} that the electricals industry is heavily demanded by the vehicles industry, but the relevant technical coefficient is only 0.06.
-It hence takes just 6\textcent{}  of electricals to make a dollar's worth of vehicles, compared to almost 12\textcent{} of metals.
-Furthermore, metals is more demanded by the Chinese economy as a whole, requiring \$1.06 to make one dollar of every sector, against 77\textcent{} of electricals.
+\begin{equation}\label{eqn:reduce_fd_by_one}
+f_s^{(i)} \rightarrow f_s^{\prime (i)} \equiv (f_s^{(i)} - 1)
+\end{equation}
 
+The simplest way to define `response' is as the change of total output of all sectors, $r$, in all countries, $j$, caused by the reduction:
+\begin{equation}
+\Delta x_{sr}^{(ij)} \equiv (x_{sr}^{\prime(ij)} - x_r^{(j)})
+\end{equation}
+where $x_{sr}^{\prime(ij)}$ is the total output of sector $r$ in country $j$ after the change in equation \eqref{eqn:reduce_fd_by_one} has taken place and the model has been recalculated according to Figure \ref{fig:algorithm}.
+$\Delta x_{sr}^{(ij)}$ is thus the change in output of sector $r$ in country $j$ induced by the change in final demand for sector $s$ in country $i$.
 
-\subsection*{A random `hopper'}
-Consider the problem of finding routes which products in the model might take to get from sector $r$ in country $j$ to sector $s$ in country $i$.
-A random walker, or `hopper', will starting in $r$, and first decide whether to hop to another sector in $j$ or to hop abroad. The probability that the hopper hops abroad is given by the import propensity, $d_r^{(j)}$.
-If hopping domestically, the hopper hops randomly to another sector, $q$, with probability proportional to the technical coefficient $a_{qr}^{(j)}$.
-The coefficient $a_{rr}^{(j)}$ is set to zero to avoid paths involving sector $r$ itself.
-If hopping abroad, the hopper arrives in country $k$ with a probability proportional to the import propensity $p_r^{(k,j)}$.
+The total response induced by sector $s$ in country $i$ is:
+\begin{equation}
+\eta_s^{(i)} \equiv \Delta x_{s}^{(i)} = \sum_j \sum_r \Delta x_{sr}^{(ij)}
+\end{equation}
+and the average response across all sectors in country $i$ is:
+\begin{equation}
+\eta^{(i)} = \frac{\sum_s \eta_s^{(i)}}{S}
+\end{equation}
+where $S$ is the number of sectors in country $i$'s economy.
 
-The hopper hops in this manner for some fixed, arbitrary number of hops.
-If the hopper arrives at the destination sector, $s$ in country $i$ within this number of hops, the route taken is recorded.
-When either the destination is reached or the maximum number of hops is exceeded, the hopper starts again from sector $r$ in country $j$.
+Sectors with a larger value of $\eta_s^{(i)}$ require a larger amount of input to produce each unit of their output compared with other sectors. $\eta{(i)}$ can thus be thought of as an (in)efficiency measure, with larger values implying a less-efficient production technology on average across all sectors.
+
+Figure \ref{tbl:least_efficient_countries} shows the 10 least efficient countries by this measure.
+China is the world's least efficient producer, a \$1M reduction in final demand leading to an average \$2.36M reduction in total output worldwide.
+ 
+This is perhaps a surprising result.
+To investigate further, the efficiency measure, $\eta^{(i)}$ can be divided into foreign and domestic effects, as follows:
+
+\begin{align}
+\eta_s^{*(i)} \equiv \Delta x_{s}^{*(i)} & = 
+	\sum_{j \neq i} \sum_r \Delta x_{sr}^{(ij)} \\
+\eta^{*(i)} & = 
+	\frac{\sum_s \eta_s^{*(i)}}{S}
+\end{align}
+and
+\begin{align}
+\eta_s^{\dagger(i)} \equiv \Delta x_{s}^{\dagger(i)} & = 
+	\sum_r \Delta x_{sr}^{(ii)} \\
+\eta^{\dagger(i)} & = 
+	\frac{\sum_s \eta_s^{\dagger(i)}}{S}
+\end{align}
+
+Figure \ref{fig:countries_domestic_vs_foreign} shows how the average response across all sectors divides between domestic response, $\eta_s^{\dagger}$, and foreign response, $\eta_s^{*}$, for each country. 
+An OLS regression line has been added to the plot, and the grey shaded area represents the 5\% confidence interval.
 
 
 \begin{figure}
 	\centering
-	\subfigure[response summed across all countries/sectors]
-	{
-		\begin{tabular}{llr}
-		\toprule
-		Sector & Country & $\Delta$\\
-		\midrule
-		      Vehicles &     China &       -2.31 \\
-		      Plastics &     China &       -2.30 \\
-		        Metals &     Korea &       -2.25 \\
-		      Vehicles &     Korea &       -2.25 \\
-		      Textiles &     China &       -2.23 \\
-		  Construction &     China &       -2.16 \\
-		     Utilities &     Korea &       -2.14 \\
-		       Leather &     China &       -2.14 \\
-		          Wood &     China &       -2.10 \\
-		        Metals &     China &       -2.05 \\
-		\bottomrule
-		\end{tabular}
-		\label{tbl:delta_total_output}
-	}
-	\subfigure[response to vehicles sector in China]
+	\subfigure[least efficient countries]
 	{
 		\begin{tabular}{lr}
 		\toprule
-		Country &     $\Delta$ \\
+		Country & Production efficiency, $\eta^{(i)}$\\
 		\midrule
-		China      & -9.56 \\
-		Japan      & -8.73 \\
-		USA      & -6.95 \\
-		Italy      & -6.38 \\
-		Germany      & -5.91 \\
-		Poland      & -4.91 \\
-		Czech Rep.      & -4.55 \\
-		Korea      & -4.31 \\
-		France      & -4.22 \\
-		Brazil      & -4.18 \\
+          China &       2.36 \\
+ Czech Republic &       1.98 \\
+       S. Korea &       1.95 \\
+         Russia &       1.94 \\
+       Bulgaria &       1.92 \\
+          Japan &       1.90 \\
+          Italy &       1.90 \\
+         Poland &       1.89 \\
+        Finland &       1.88 \\
+       Portugal &       1.87 \\
 		\bottomrule
 		\end{tabular}
-		\label{tbl:delta_chn_veh}
+		\label{tbl:least_efficient_countries}
 	}
-	\subfigure[response of Chinese sectors to vehicles sector in China]
+	\subfigure[China's least efficient sectors]
 	{
 		\begin{tabular}{lr}
 		\toprule
-		sector & $\Delta$ \\
+		       Sector & Production efficiency, $\eta_s^{(\text{China})}$\\
 		\midrule
-		Electricals       & -1.62 \\
-		Vehicles          & -1.53 \\
-		Metals            & -1.44 \\
-		Chemicals         & -0.95 \\
-		Machinery         & -0.54 \\
-		Mining            & -0.42 \\
-		Plastics          & -0.39 \\
-		Utilities         & -0.35 \\
-		Textiles          & -0.23 \\
-		Wholesale Trade   & -0.22 \\
-		\bottomrule	
+		     Vehicles &       2.47 \\
+		         Food &       2.20 \\
+		     Plastics &       2.20 \\
+		       Metals &       2.17 \\
+		    Machinery &       2.17 \\
+		         Wood &       2.14 \\
+		  Electricals &       2.13 \\
+		 Construction &       2.12 \\
+		     Textiles &       2.11 \\
+		        Paper &       2.10 \\
+		\bottomrule
 		\end{tabular}
-		\label{tbl:chinese_response_to_chn_vec}
+		\label{tbl:chinas_least_efficient_sectors}
 	}
-	\caption{Response ($\Delta$) to a \$1 reduction in final demand for the shown sector, in terms of difference in the total output, $x$, of other sectors. All tables show the largest 10 only.}
+	\caption{Response to a \$1M reduction in final demand, in terms of difference induced in the total output, $x$, of other sectors. Only the largest 10 are shown.}
 \end{figure}
 
-%\begin{table}
-%\begin{center}
-%\begin{tabular}{lr}
-%\toprule
-%Sector &     $\sum{a}$ \\
-%\midrule
-%Electricals  &  0.82 \\
-%Plastics     &  0.81 \\
-%Fuel         &  0.80 \\
-%Vehicles     &  0.80 \\
-%Leather      &  0.80 \\
-%Metals       &  0.79 \\
-%Textiles     &  0.79 \\
-%Chemicals    &  0.79 \\
-%Wood         &  0.77 \\
-%Construction &  0.77 \\
-%\bottomrule
-%\end{tabular}
-%\end{center}
-%\caption{The sum of all technical coefficients, $\sum_r{a_{rs}^{(CHN)}}, s=\text{electricals}$, for each sector of the Chinese economy. Only the largest 10 are shown.}\label{tbl:chn_electricals}
-%\end{table}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
+\caption{The total response of the global economy to a reduction in final demand, averaged across every sector in a country. 
+`Response' is defined as the total production lost across all sectors.
+Here, response has been divided into domestic, where the response is measured only in the country whose final demand has been reduced, and foreign, where the response is measured in all other countries only.
+The solid line shows the result of an OLS regression, with the grey shaded area being the 5\% confidence interval.}
+\label{fig:countries_domestic_vs_foreign}
+\end{figure}
 
 \subsection*{A unified network approach}
 The flow of goods between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{Nystuen1961,Serrano2003,Bhattacharya2008,Baskaran2011}.
@@ -526,9 +520,9 @@ We can visualise the changes which occur following the reduction of demand in Ch
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{images/Chinese Vehicles Top 10 Countries.png}
-\caption{A network representation of the seven most-affected countries following a reduction in final demand for the Chinese vehicles sector. Node size is proportional to eigenvector centrality, and edge width is proportional to the change in flow.}
-\end{figure}\label{fig:chnvehtop6}
+\includegraphics[width=\textwidth]{"images/Chinese Vehicles Top 10 Countries".png}
+\caption{A network representation of the seven most-affected countries following a reduction in final demand for the Chinese vehicles sector. Node size is proportional to eigenvector centrality, and edge width is proportional to the change in flow.}\label{fig:chnvehtop6}
+\end{figure}
 
 
 \section{Conclusions}\label{sec:conclusions}
