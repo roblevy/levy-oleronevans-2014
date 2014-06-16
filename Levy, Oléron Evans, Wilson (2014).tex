@@ -61,8 +61,7 @@ The NIOTs are linked through data from the UN covering trade in both goods\footn
 The remainder of this paper is structured as follows: 
 Section \ref{sec:litreview} gives an overview of existing work in this area.
 Section \ref{sec:system} gives a description of the present system and outlines how data is used to calibrate the parameters of the model.
-The algorithm used to calculate the output of the model is described in section \ref{sec:algorithm} and some preliminary results are given in section \ref{sec:results}.
-
+The algorithm used to calculate the output of the model is described in section \ref{sec:algorithm} and some preliminary results are given in section \ref{sec:analysis}.
 Some concluding comments are added in section \ref{sec:conclusions}.
 
 \section{Existing Global Economic Models} \label{sec:litreview}
@@ -84,9 +83,10 @@ These are, along with the WIOD which is used in the present model, EORA \parenci
 Each of these existing models of the global economy extend the idea of the national input-output table to an international setting: where the magnitude of every bilateral sector--sector flow is recorded for a given country in an NIOT, these projects record the magnitude of every country/sector--country/sector flow.
 Thus, for example, the extent to which British agriculture purchases from Belgian manufacturing is recorded in dollar amounts.
 This results in a very large matrix which, by inverting in the normal input-output way, can be used to predict the impact of a particular exogenous change in demand.
-The authors believe that this is taking the simplicity and elegance of input-output analysis a little far; the idea that each sector buys in fixed proportion from each other sector in each other country turns the above-mentioned ignoring of price- and substitution-elasticities from a convenient simplification in the case of the NIOT to an out-and-out denial of the concept of economic dynamics.
+The authors believe that this is taking the simplicity and elegance of input-output analysis a little far. The idea that each sector buys in fixed proportion from each other sector in each other country turns the above-mentioned ignoring of price- and substitution-elasticities from a convenient simplification in the case of the NIOT to an out-and-out denial of the concept of economic dynamics.
 
-The present model provides a framework in which the beauty of input-output analysis at the national level can be combined with a more subtle understanding of the dynamics of international trade.
+The present model provides a framework in which the power of input-output analysis at the national level can be combined with a more subtle understanding of the dynamics of international trade.
+It also provides modellers with a broader set of parameters than the standard technical coefficients of WIOTs which will facilitate the combination of the present model with other models of human systems, such as migration, international security and development aid.
 
 \section{The System Description} \label{sec:system}
 The model presented here has $c$ countries, the economies of which are divided into $s$ productive sectors.
@@ -213,13 +213,13 @@ Having calculated total domestic production, we can then calculate the import re
 Thus the domestic total production and the imports are completely determined from demand and the technical coefficients.
 
 \subsubsection*{Import Ratios}\label{sec:importratios}
-Since the eventual goal of this model is to represent all the countries in the world, many of the country IOTs will have to be estimated from available data (in fact, all except the 40 of the WIOD will).
+Since the eventual goal of this model is to represent all the countries in the world, many of the NIOTs will have to be estimated from available data (in fact, all will except the 40 of the WIOD).
 It is therefore crucial that the model be as parsimonious as possible in terms of parameters.
 To this end, the model features two simplifications inspired by the description of Leontief's global model given by \textcite{Duchin2004}.
 
 Leontief assumed that engineers in an importing country do not care where a product originated from; they will simply know that domestic production does not meet their demand, and instead demand a perfectly-substitutable imported good.
 In a similar spirit, when a product in the present model arrives at the shores of an importing country, it enters a national warehouse along with domestically produced goods, at which point the two become indistinguishable\footnote{Note that this concept is referred to in \textcite{Miller1985} as \textit{import similarity}}.
-The only thing which is specified by the model is the fraction of all goods used domestically which must come from imports. This fraction remains fixed per country and per sector, and is called the \textit{import ratio}. It is calculated as:
+The only thing which is specified by the model is the fraction of all goods used domestically which must come from imports. This fraction remains fixed per country and per sector, and is called the \textit{import ratio}. It is calculated directly from the country's NIOT as:
 \begin{equation}\label{eqn:importratio}
 d_s^{(i)} = \frac{m_s^{(i)}}{(x_s^{(i)} - e_s^{(i)} ) + m_s^{(i)}}
 \end{equation}
@@ -229,7 +229,9 @@ It includes intermediate flows required to fulfil export demand, as well as dire
 This is because imports may not directly supply export demand as per equation \eqref{eqn:Tvectorised}.
 
 The assumption of fixed import ratios makes easier the job of estimating countries for which the WIOD has no data, since it reduces the number of technical coefficients by half.
-This reduced set of technical coefficients means that only total inter-sector flows, $\boldsymbol{Z}$, equivalent to $\boldsymbol{Z}^{\dagger} + \boldsymbol{Z}^{*}$ in equation \eqref{eqn:Tvectorised}, need to be estimated, along with an $s$-vector, $\boldsymbol{d}$, of import ratios. 
+This reduced set of technical coefficients means that only total inter-sector flows, $\boldsymbol{Z}$, equivalent to $\boldsymbol{Z}^{\dagger} + \boldsymbol{Z}^{*}$ in equation \eqref{eqn:Tvectorised}, need to be estimated, along with an $s$-vector, $\boldsymbol{d}$, of import ratios.
+Additionally, as mentioned above, this also represents a more plausible assumption of how sectors split their purchasing between domestic and imported.
+
 Following equation \eqref{eq:adagger}, the technical coefficients can then be calculated as
 \begin{equation}
 a_{r,s} = \frac{z_{r,s}}{x_s}
@@ -261,22 +263,25 @@ Having calculated the total production, $\boldsymbol{x}$, in equation \eqref{eqn
 \boldsymbol{Z^\dagger}& = (\boldsymbol{I} - \boldsymbol{\hat{d}})
 	\boldsymbol{Z}\label{eqn:zstar}
 \end{align}
-Additional benefits to the import ratios assumption are that final demand and investment have only $s$ elements , rather than the $2s$ elements shown in equation \eqref{eqn:T}.
-In a 35 sector model, such as that used by the WIOD, the number of data points to be estimated in order to add a new country thus reduces from $70 \times 37 = 2590$ (37 being the 35 sector columns plus $f$ and $n$) to $35 \times 38 = 1330$ (the columns plus $f$, $n$ and the import ratios).
+Additional benefits to the import ratios assumption are that final demand and investment have only $s$ elements, rather than the $2s$ elements shown in equation \eqref{eqn:T}.
+This implies that consumers have no preference between domestic and imported goods.
+Rather it is up to the sectors to decide how best to meet the single demand for their product.
 
 \subsection{An International Trade Model}\label{sec:trade}
 In standard inter-regional input-output modelling (IRIO), each sector in each country is explicit about which countries it gets its imports from. 
-This requires each sector to have $s \times c$ technical coefficients, an onerous data requirement. 
+This requires each sector to have $s \times c$ technical coefficients, an onerous data requirement and, as already mentioned, a strain on the credulousness of the assumptions. 
 
-The WIOD present all these technical coefficients in the world input-output tables (WIOTs) which they publish, but in order to include countries for which the WIOD publishes no data, a second assumption must be made, related to what Leontief via \textcite{Duchin2004} refers to as ``export shares''.
+The WIOD present all these technical coefficients in the world input-output tables (WIOTs) which they publish, but the present model instead makes a second assumption, related to what Leontief via \textcite{Duchin2004} refers to as ``export shares''.
 
 \subsubsection*{Import Propensities}
-The assumption is that a country gets each product from other countries in fixed proportions. Thus, country $j$ will always import the same proportion of total demand for product $s$ from country $i$.
-We refer to these fixed proportions as \textit{import propensities} as they describe a country's propensity to import from each other country. The propensity for country $j$ to import good $s$ from country $i$ is given by
+The model assumes that a country gets each product from its international trading partners in fixed proportions.
+Thus, country $j$ will always import the same proportion of total demand for product $s$ from country $i$.
+We refer to these fixed proportions as \textit{import propensities} as they describe a country's propensity to import a given good from each other country.
+The propensity for country $j$ to import good $s$ from country $i$ is given by:
 \begin{equation}\label{eqn:importpropensities}
 p^{(i,j)}_s = \frac{y^{(i,j)}_s}{\sum_k{y^{(k,j)}_s}}
 \end{equation}
-where $y^{(i,j)}_s$ is the trade flow of good $s$ from country $i$ to country $j$. The $y_s$ are taken from the UN COMTRADE database, with a mapping from 6-figure product code to sector kindly provided by the WIOD team.
+where $y^{(i,j)}_s$ is the trade flow of good $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind the WIOD. This was of invaluable help in creating the present model.}.
 
 Given the import requirements of each country from equation \eqref{eqn:mmodel} and the import propensities from \eqref{eqn:importpropensities}, the export demand on sector $s$ in country $i$ due to demand from country $j$ can be calculated as:
 \begin{equation*}
@@ -286,8 +291,8 @@ and total export demand in country $i$ is therefore:
 \begin{equation}\label{eqn:emodel}
 e_s^{(i)} = \sum_k{p_s^{(i,k)}m_s^{(k)}}
 \end{equation}
-\noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$, of all sectors in all countries; the intermediate input-output flows, $z_{s,t}^{\dagger(i)}$ and $z_{s,t}^{*(i)}$; imports, $m_s^{(i)}$; exports, $e_s^{(i)}$; and all trade flows, $y_s^{(i,j)}$, given a set of technical coefficients, $a_{r,s}^{(i)}$; import ratios, $d_s^{(i)}$; trade propensities, $p_s^{(i,j)}$; and final demands\footnote{In the first iteration of the model, investments, $n_s^{(i)}$, are set to zero. 
-Data is provided by the WIOD for investments but it is not used in this iteration of the model.}, $f_s^{(i)}$. For an exogenous change in any of the latter four parameters, all of the former six groups of flow can be found.
+\noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$, of all sectors in all countries; the intermediate input-output flows, $z_{s,t}^{\dagger(i)}$ and $z_{s,t}^{*(i)}$; imports, $m_s^{(i)}$; exports, $e_s^{(i)}$; and all trade flows, $y_s^{(i,j)}$, given a set of technical coefficients, $a_{r,s}^{(i)}$, import ratios, $d_s^{(i)}$, trade propensities, $p_s^{(i,j)}$, and final demands\footnote{In the present version of the model, investments, $n_s^{(i)}$, are set to zero. 
+Data on investments is provided by the WIOD but it is not used in this version.}, $f_s^{(i)}$. For an exogenous change in any of the latter four parameters, all of the former six categories of flows can be found.
 
 \section{The Model Algorithm}\label{sec:algorithm}
 As outlined in section \ref{sec:system} above, the model takes four groups of parameters and produces a complete set of flows within countries (input-output flows) and a complete set of trade flows (imports and exports) between countries.
@@ -383,7 +388,7 @@ If they do balance, the iteration is complete. If not, we continue to iterate be
 The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's good.
 Since the WIOD reports goods flows in millions of US dollars (\$M), this will also be the unit of all the following analysis.
 
-A simple way to measure the efficiency of a sector is to reduce final demand for the goods of that sector by one unit, and measure the response of each other sector in the model. We can formalise the final-demand change in sector $s$ in country $i$ as:
+A simple way to measure the efficiency of a sector is to model the reduction of final demand for the goods of that sector by one unit, and measure the response of each other sector in the model. We can formalise the final-demand change in sector $s$ in country $i$ as:
 
 \begin{equation}\label{eqn:reduce_fd_by_one}
 f_s^{(i)} \rightarrow f_s^{\prime (i)} \equiv (f_s^{(i)} - 1)
@@ -396,55 +401,20 @@ The simplest way to define `response' is as the change of total output of all se
 where $x_{sr}^{\prime(ij)}$ is the total output of sector $r$ in country $j$ after the change in equation \eqref{eqn:reduce_fd_by_one} has taken place and the model has been recalculated according to Figure \ref{fig:algorithm}.
 $\Delta x_{sr}^{(ij)}$ is thus the change in output of sector $r$ in country $j$ induced by the change in final demand for sector $s$ in country $i$.
 
-The total response induced by sector $s$ in country $i$ is:
+The total response across all countries and all sectors induced by sector $s$ in country $i$ is:
 \begin{equation}
 \eta_s^{(i)} \equiv \Delta x_{s}^{(i)} = \sum_j \sum_r \Delta x_{sr}^{(ij)}
 \end{equation}
-and the average response across all sectors in country $i$ is:
+and the average response induced by all sectors in country $i$ is:
 \begin{equation}
-\eta^{(i)} = \frac{\sum_s \eta_s^{(i)}}{S}
+\eta^{(i)} = \frac{\sum_s \eta_s^{(i)}}{s}
 \end{equation}
-where $S$ is the number of sectors in country $i$'s economy.
+where $s$ is, as before, the number of sectors in country $i$'s economy.
 
-Sectors with a larger value of $\eta_s^{(i)}$ require a larger amount of input to produce each unit of their output compared with other sectors. $\eta{(i)}$ can thus be thought of as an (in)efficiency measure, with larger values implying a less-efficient production technology on average across all sectors.
+Sectors with a larger value of $\eta_s^{(i)}$ require a larger amount of input to produce each unit of their output. $\eta{(i)}$ can thus be thought of as an (in)efficiency measure, with larger values implying a less-efficient production technology on average across all sectors in a given country.
 
 Figure \ref{tbl:least_efficient_countries} shows the 10 least efficient countries by this measure.
 China is the world's least efficient producer, a \$1M reduction in final demand leading to an average \$2.36M reduction in total output worldwide.
- 
-This is perhaps a surprising result.
-To investigate further, the efficiency measure, $\eta^{(i)}$ can be divided into foreign and domestic effects, as follows:
-
-\begin{align}
-\eta_s^{*(i)} \equiv \Delta x_{s}^{*(i)} & = 
-	\sum_{j \neq i} \sum_r \Delta x_{sr}^{(ij)} \\
-\eta^{*(i)} & = 
-	\frac{\sum_s \eta_s^{*(i)}}{S}
-\end{align}
-and
-\begin{align}
-\eta_s^{\dagger(i)} \equiv \Delta x_{s}^{\dagger(i)} & = 
-	\sum_r \Delta x_{sr}^{(ii)} \\
-\eta^{\dagger(i)} & = 
-	\frac{\sum_s \eta_s^{\dagger(i)}}{S}
-\end{align}
-such that
-\begin{equation}
-\eta^{(i)} = \eta^{*(i)} + \eta^{\dagger(i)}
-\end{equation}
-Figure \ref{fig:countries_domestic_vs_foreign} shows how the average response across all sectors divides between domestic response, $\eta_s^{\dagger}$, and foreign response, $\eta_s^{*}$, for each country. 
-An OLS regression line has been added to the plot, and the grey shaded area represents the 5\% confidence interval.
-Countries which lie close to the line all have a similar total efficiency, $\eta^{(i)}$.
-The region below the line is the region of greater-than-average efficiency and that above the line is the region of smaller-than-average efficiency.
-Countries further to the left, such as Brazil, India, Japan, Russia, Turkey and the USA, are more self-reliant than those on the right, such as Luxembourg, Belgium, the Netherlands and Denmark.
-This self-reliance can be made precise by measuring the ratio of domestic response to foreign response:
-
-\begin{equation}
-\phi^{(i)} = \frac{\eta^{*(i)}}{\eta^{\dagger(i)}}
-\end{equation}
-
-China is immediately visible as an outlier.
-Its production technology is around one-third less efficient ($\eta = 2.36$) than that of Brazil ($\eta = 1.75$) or India ($\eta = 1.74$), but almost all of this extra inefficiency in targeted at domestic sectors.
-Thus China's production inefficiencies benefit its domestic sectors to a disproportionate extent.
 
 \begin{figure}
 	\centering
@@ -452,7 +422,7 @@ Thus China's production inefficiencies benefit its domestic sectors to a disprop
 	{
 		\begin{tabular}{lr}
 		\toprule
-		Country & Production efficiency, $\eta^{(i)}$\\
+		Country & $\eta^{(i)}$\\
 		\midrule
           China &       2.36 \\
  Czech Republic &       1.98 \\
@@ -472,7 +442,7 @@ Thus China's production inefficiencies benefit its domestic sectors to a disprop
 	{
 		\begin{tabular}{lr}
 		\toprule
-		       Sector & Production efficiency, $\eta_s^{(\text{China})}$\\
+		       Sector & $\eta_s^{(\text{China})}$\\
 		\midrule
 		     Vehicles &       2.47 \\
 		         Food &       2.20 \\
@@ -491,6 +461,35 @@ Thus China's production inefficiencies benefit its domestic sectors to a disprop
 	\caption{Response to a \$1M reduction in final demand, in terms of difference induced in the total output, $x$, of other sectors. Only the largest 10 are shown.}
 \end{figure}
 
+This is perhaps a surprising result.
+How can one of the world's acknowledged economic powerhouses have inefficient production technologies?
+To investigate further, it is useful to split the efficiency measure, $\eta^{(i)}$, into foreign and domestic effects, as follows:
+
+\begin{align}
+\eta_s^{*(i)} \equiv \Delta x_{s}^{*(i)} & = 
+	\sum_{j \neq i} \sum_r \Delta x_{sr}^{(ij)} \\
+\eta^{*(i)} & = 
+	\frac{\sum_s \eta_s^{*(i)}}{s}
+\end{align}
+and
+\begin{align}
+\eta_s^{\dagger(i)} \equiv \Delta x_{s}^{\dagger(i)} & = 
+	\sum_r \Delta x_{sr}^{(ii)} \\
+\eta^{\dagger(i)} & = 
+	\frac{\sum_s \eta_s^{\dagger(i)}}{s}
+\end{align}
+such that
+\begin{equation}
+\eta^{(i)} = \eta^{*(i)} + \eta^{\dagger(i)}
+\end{equation}
+Figure \ref{fig:countries_domestic_vs_foreign} shows how the average response across all sectors divides between domestic response, $\eta_s^{\dagger}$, and foreign response, $\eta_s^{*}$, for each country. 
+An OLS regression line has been added to the plot.
+Countries which lie close to the line all have a similar total efficiency, $\eta^{(i)}$.
+The region below the line is the region of greater-than-average efficiency and that above the line is the region of less-than-average efficiency.
+China is immediately visible as an outlier.
+Its production technology is around one-third less efficient ($\eta = 2.36$) than that of Brazil ($\eta = 1.75$) or India ($\eta = 1.74$), but almost all of this extra inefficiency in targeted at domestic sectors.
+Thus China's production inefficiencies benefit its domestic sectors to a disproportionate extent.
+
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
@@ -500,6 +499,27 @@ Here, response has been divided into domestic, where the response is measured on
 The solid line shows the result of an OLS regression, with the grey shaded area being the 5\% confidence interval.}
 \label{fig:countries_domestic_vs_foreign}
 \end{figure}
+
+
+Countries further to the left of Figure \ref{fig:countries_domestic_vs_foreign}, such as Brazil, India, Japan, Russia, Turkey and the USA, are more self-reliant than those on the right, such as Luxembourg, Belgium, the Netherlands and Denmark.
+This self-reliance can be made precise by measuring the ratio of domestic response to foreign response:
+\begin{equation}
+\phi^{(i)} = \frac{\eta^{*(i)}}{\eta^{\dagger(i)}}
+\end{equation}
+Figure \ref{fig:phi-vs-pop} shows the relationship between $\phi^{(i)}$ and population in 2010 (World Development Indicators, The World Bank).
+
+The positive slope of the regression line (significant at 0.1\%) indicates that larger countries are generally more self-reliant.
+Brazil and Australia are both more self-reliant than their population would suggest.
+This might be an outcome of limiting the data set to 40 countries: none of Brazil's neighbours is in the data set, and only Indonesia could be regarded as in any way neighbouring Australia.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
+\caption{}
+\label{fig:phi-vs-pop}
+\end{figure}
+
+
 
 \subsection*{A unified network approach}
 The flow of goods between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{Nystuen1961,Serrano2003,Bhattacharya2008,Baskaran2011}.
@@ -537,7 +557,10 @@ where, as previously, $f$ is final demand, $e$ is export demand and $n$ are inve
 
 Along with the sector-to-sector flows given by equation \eqref{eqn:zstar}, this allows the representation of all the flows in the present model as a single network, and standard network analysis techniques can then be used.
 
-We can visualise the changes which occur following the reduction of demand in China for the Vehicles sector by \$1M. The change to every flow (both $y_{rs}^{(i,j)}$ and $z_{rs}^{(i)}$ type flows) is recorded and visualised in figure \ref{fig:chnvehtop6}.
+We can visualise the changes which occur following the reduction of demand in China for the Vehicles sector by \$1M.
+The change to every flow (both $y_{rs}^{(i,j)}$ and $z_{rs}^{(i)}$ type flows) in the eight most-affected countries is recorded and visualised in figure \ref{fig:chnvehtop6}.
+Node size is proportional to eigenvector centrality and the edge weight is proportional to the change induced in the particular flow be the reduction in final demand.
+This diagram reveals the patterns and shapes of the various economies which would be hard to pick out in the raw flow matrix.
 
 \begin{figure}
 \centering
@@ -547,6 +570,8 @@ We can visualise the changes which occur following the reduction of demand in Ch
 
 
 \section{Conclusions}\label{sec:conclusions}
+This paper presents a blah blah blah....
+
 
 \printbibliography
 
