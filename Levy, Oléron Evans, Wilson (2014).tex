@@ -55,8 +55,8 @@ Some initial analysis of the model and its properties are also presented
 The objective of this paper is to present global economic model that can be used as the basis for assessing the impacts of future changes in trade, migration, security and development aid.
 The model presented here represents a first `proof of concept' step towards this ambitious goal.
 The economies of individual countries are represented as 35-sector input-output models each of which is linked through trade flows representing imports and exports.
-This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{Timmer2012}, a collection of input-output tables (IOTs) for 40 countries across 15 years, from 1995 to 2009.
-The IOTs are linked through data from the UN covering trade in both goods\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
+This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{Timmer2012}, a collection of national input-output tables (NIOTs) for 40 countries across 15 years, from 1995 to 2009.
+The NIOTs are linked through data from the UN covering trade in both goods\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
 
 The remainder of this paper is structured as follows: 
 Section \ref{sec:litreview} gives an overview of existing work in this area.
@@ -76,15 +76,22 @@ Preliminary plans provide for a description of the world economy in terms of twe
 Some 20 years later, Faye Duchin, a former research assistant of Leontief, described how Leontief's efforts in this area have largely been ignored by economists, describing the departures from the standard, neoclassical modelling in terms of price elasticity and elasticity of substitution as being ``too great to ignore'' \parencite{Duchin2004}. 
 See section \ref{sec:iots} for more on this subject.
 
-In the years since Leontief published his global model, Input-output analysis has been largely restricted to regional studies, of which \textcite{Akita1993}, \textcite{Khan1999} and \textcite{Luo2013a} are examples; and studies related to energy and the environment, such as  \textcite{Leontief1970}, \textcite{Joshi1999}, \textcite{Bergh2002} and \textcite{Hendrickson2006}.
+In the years since Leontief published his global model, input-output analysis has been largely restricted to regional studies, of which \textcite{Akita1993}, \textcite{Khan1999} and \textcite{Luo2013a} are examples; and studies related to energy and the environment, such as  \textcite{Leontief1970}, \textcite{Joshi1999}, \textcite{Bergh2002} and \textcite{Hendrickson2006}.
 
 However, much more recently, attention has returned to input-output modelling in a global context more generally. \textcite{Tukker2013} describe how several multi-regional input-output (MRIO) models have been developed in the very recent literature.
-These are, along with the WIOD which is used in the present model, EORA \parencite{Lenzen2012}, EXIOPOL \parencite{Tukker2013a} and the slightly more mature, and proprietorial GTAP \parencite{Walmsley2012}.
+These are, along with the WIOD which is used in the present model, EORA \parencite{Lenzen2012}, EXIOPOL \parencite{Tukker2013a} and the slightly more mature, but proprietorial GTAP \parencite{Walmsley2012}.
+
+Each of these existing models of the global economy extend the idea of the national input-output table to an international setting: where the magnitude of every bilateral sector--sector flow is recorded for a given country in an NIOT, these projects record the magnitude of every country/sector--country/sector flow.
+Thus, for example, the extent to which British agriculture purchases from Belgian manufacturing is recorded in dollar amounts.
+This results in a very large matrix which, by inverting in the normal input-output way, can be used to predict the impact of a particular exogenous change in demand.
+The authors believe that this is taking the simplicity and elegance of input-output analysis a little far; the idea that each sector buys in fixed proportion from each other sector in each other country turns the above-mentioned ignoring of price- and substitution-elasticities from a convenient simplification in the case of the NIOT to an out-and-out denial of the concept of economic dynamics.
+
+The present model provides a framework in which the beauty of input-output analysis at the national level can be combined with a more subtle understanding of the dynamics of international trade.
 
 \section{The System Description} \label{sec:system}
 The model presented here has $c$ countries, the economies of which are divided into $s$ productive sectors.
 Although each sector produces many distinct goods, these goods are considered to be perfect substitutes, allowing the terms `sector' and `product' to be used interchangeably throughout this paper.
-All goods flows are given by value, measured in current price US\$.
+All goods flows are given by value, measured in millions of current price US\$.
 For the remainder of this paper the terms `quantity' and `value' will be used interchangeably.
 Goods produced domestically are labelled with a dagger superscript ($\dagger$) and imported goods with an asterisk superscript.
 Table \ref{tbl:cvars} shows the quantities, taken from data published by the WIOD, which characterise a country's economy for a particular year.
