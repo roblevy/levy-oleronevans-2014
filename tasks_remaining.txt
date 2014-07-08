@@ -1,0 +1,43 @@
+Still to be done:
+================
+
+Variable s & S consistency
+
+t used as subscript, then later as an iteration variable [t].
+Perhaps use [n] as the iteration variable
+
+Sell work more in the abstract
+
+Mention that more recent years of WIOD are available, but we have access to data to 2009
+
+Broken reference (??) "some preliminary results given in section"
+
+Tone down style of Section 2 "took the prestige that this bestowed on him" etc.
+
+Section 3 -  Explain what investments, final demand etc. actually are, presumably with reference to WIOD documentation
+
+Possibly through expanding Table 1, state precisely how our variables correspond to the columns of the WIOD tables. Also, which rows have we ignored (most of those near the bottom are rolled up into our value added, which we don't use, so they are effectively ignored).
+
+Decide on whether "good" or "product" should be used and be consistent
+
+Before equation (16), what did we decide about e_s^(i,j) ? Did we just say that it could be replaced with y_s^(i,j), since these are the same thing?
+
+Add Section 3.4 -- Rest of World
+
+Section 4 -- Some work to be done here
+- To new Section 4.1 add clear summary of where the data was sourced for each
+of the model parameters and quantities for initialisation
+- To new Section 4.2, rework algorithm description, including description of
+the stop condition and explanation of the iteration variable
+- To new Section 4.2, refer to Anthony's work on -- demonstrating
+convergence; writing model as a linear system
+- To new Section 4.2 -- justify new algorithmic approach in terms of
+flexibility and fact that "computational convenience is no longer sufficient justification for a mathematically elegant..."
+
+Figure 1, arrows still go the wrong way.
+
+Section 5 -- Analysis
+- Think of a new word, other than "efficiency", and rewrite accordingly
+- Talk up the interest and importance of this measure a lot more
+
+Write conclusion?
