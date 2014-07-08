@@ -8,10 +8,6 @@ Perhaps use [n] as the iteration variable
 
 Sell work more in the abstract
 
-Mention that more recent years of WIOD are available, but we have access to data to 2009
-
-Broken reference (??) "some preliminary results given in section"
-
 Tone down style of Section 2 "took the prestige that this bestowed on him" etc.
 
 Section 3 -  Explain what investments, final demand etc. actually are, presumably with reference to WIOD documentation
