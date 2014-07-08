@@ -178,11 +178,11 @@ In matrix form, $\boldsymbol{T}$ may be written:
 
 \subsection{A Single Country Model}\label{sec:countries}
 In the standard input-output model, each country is described by the input-output table described in section \ref{sec:iots} above.
-From the elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, each sector has a complete `recipe' for making its output, in terms of the quantities of each good used as input, both domestic and imported. For the remainder of this section, the country superscript will be excluded whenever its presence is clear from the context.
+From the elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, each sector has a complete `recipe' for making its output, in terms of the quantities of each product used as input, both domestic and imported. For the remainder of this section, the country superscript will be excluded whenever its presence is clear from the context.
 
 \subsubsection*{Technical Coefficients}\label{sec:techcoeffs}
 By dividing intermediate flows by total output, we can arrive at a set of \textit{technical coefficients} which define the input of one sector required per unit output of another.
-The amount of good $r$ required by sector $s$ to produce a single unit of output is thus:
+The amount of product $r$ required by sector $s$ to produce a single unit of output is thus:
 \begin{equation}\label{eq:adagger}
 a_{r,s}^\dagger = \frac{z^\dagger_{r,s}}{x_s}
 \end{equation}
@@ -220,7 +220,7 @@ Since much of the data on national economies involves a high degree of uncertain
 The addition of unnecessary layers of complexity would likely increase both the risk and the scale of any errors associated with this uncertainty.
 For these reasons, the model features two simplifications inspired by the description of Leontief's global model given by \textcite{duchin_international_2004}.
 
-Leontief assumed that engineers in an importing country do not care where a product originated; they will simply know that domestic production does not meet their demand, and instead demand a perfectly-substitutable imported good.
+Leontief assumed that engineers in an importing country do not care where a product originated; they will simply know that domestic production does not meet their demand, and instead demand a perfectly-substitutable imported product.
 In a similar spirit, when a product in the present model arrives at the shores of an importing country, it enters a theoretical `national warehouse' along with domestically produced goods, at which point the two become indistinguishable\footnote{Note that this concept is referred to in \textcite{miller_input-output_1985} as \textit{import similarity}}.
 The only thing specified by the model is the fraction of all goods used domestically which are supplied by imports. This fraction is assumed to remain fixed per country and per sector, and is called the \textit{import ratio}. It is calculated directly from the country's NIOT as:
 \begin{equation}\label{eqn:importratio}
@@ -279,12 +279,12 @@ The WIOD present all these technical coefficients in the world input-output tabl
 \subsubsection*{Import Propensities}
 The model assumes that a country gets each product from its international trading partners in fixed proportions.
 Thus, country $j$ will always import the same proportion of total demand for product $s$ from country $i$.
-We refer to these fixed proportions as \textit{import propensities} as they describe a country's propensity to import a given good from each other country.
-The propensity for country $j$ to import good $s$ from country $i$ is given by:
+We refer to these fixed proportions as \textit{import propensities} as they describe a country's propensity to import a given product from each other country.
+The propensity for country $j$ to import product $s$ from country $i$ is given by:
 \begin{equation}\label{eqn:importpropensities}
 p^{(i,j)}_s = \frac{y^{(i,j)}_s}{\sum_k{y^{(k,j)}_s}}
 \end{equation}
-where $y^{(i,j)}_s$ is the trade flow of good $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind the WIOD. This was of invaluable help in creating the present model.}.
+where $y^{(i,j)}_s$ is the trade flow of product $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind the WIOD. This was of invaluable help in creating the present model.}.
 
 Given the import requirements of each country from equation \eqref{eqn:mmodel} and the import propensities from \eqref{eqn:importpropensities}, the export demand on sector $s$ in country $i$ due to demand from country $j$ can be calculated as:
 \begin{equation*}
@@ -305,10 +305,10 @@ Data on investments is provided by the WIOD but it is not used in this version.}
 As outlined in section \ref{sec:system} above, the model takes four groups of parameters and produces a complete set of flows within countries (input-output flows) and a complete set of trade flows (imports and exports) between countries.
 To recap, the four groups of parameters are:
 \begin{enumerate}
-\item Final demand, $f_s^{(i)}$: the quantity of a good consumed by the public and the government of a particular country.
-\item Import propensities, $p_s^{(i,j)}$: the proportion of country $j$'s total of import of good $s$ which comes from country $i$.
-\item Import ratios, $d_s^{(i)}$: the proportion of country $i$'s total demand for good $s$ which is supplied by imports.
-\item Technical coefficients, $a_{r,s}^{(i)}$: the quantity of good $r$ required in country $i$ to make a single unit of good $s$.
+\item Final demand, $f_s^{(i)}$: the quantity of a product consumed by the public and the government of a particular country.
+\item Import propensities, $p_s^{(i,j)}$: the proportion of country $j$'s total of import of product $s$ which comes from country $i$.
+\item Import ratios, $d_s^{(i)}$: the proportion of country $i$'s total demand for product $s$ which is supplied by imports.
+\item Technical coefficients, $a_{r,s}^{(i)}$: the quantity of product $r$ required in country $i$ to make a single unit of product $s$.
 \end{enumerate}
 
 \subsection{Solving the model algorithmically}\label{sec:algorithm_subsec}
@@ -394,7 +394,7 @@ If they do balance, the iteration is complete. If not, we continue to iterate be
 \end{figure}
 
 \section{Analysis}\label{sec:analysis}
-The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's good.
+The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's product.
 Since the WIOD reports goods flows in millions of US dollars (\$M), this will also be the unit of all the following analysis.
 
 A simple way to measure the efficiency of a sector is to model the reduction of final demand for the goods of that sector by one unit, and measure the response of each other sector in the model. We can formalise the final-demand change in sector $s$ in country $i$ as:
@@ -545,7 +545,7 @@ This additional assumption allows us to specify a complete system of intermediat
 y_{rs}^{(i,j)} = p_{r}^{(i,j)} d_{r}^{(j)} a_{rs}^{(j)} x_{s}^{(j)}
 \end{equation}
 Equation \eqref{eqn:y_rsij} can be understood as follows:
-sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s good to produce its total output;
+sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s product to produce its total output;
 a fraction $d_{r}^{(j)}$ of this will be supplied by imports;
 a fraction $p_{r}^{(i,j)}$ of these imports will come from country $i$. Note that since countries do not import their own exports, $p_s^{(i,i)}=0,\ \forall i$, and the expression holds trivially for $i=j$.
 
