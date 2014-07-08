@@ -50,7 +50,7 @@ Some initial analysis of the model and its properties is also presented
 The objective of this paper is to present a global economic model that can be used as the basis for assessing the impacts of future changes in trade, migration, security and development aid.
 The model presented here represents a first `proof of concept' step towards this ambitious goal.
 The economies of individual countries are represented as 35-sector input-output models, each of which is linked through trade flows representing imports and exports.
-This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{timmer_world_2012}, a collection of national input-output tables (NIOTs) for 40 countries across 15 years, from 1995 to 2009.
+This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{timmer_world_2012}, a collection of national input-output tables (NIOTs) for 40 countries across 17 years, from 1995 to 2011.
 The NIOTs are linked through data from the UN covering trade in both goods\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
 
 The remainder of this paper is structured as follows: 
@@ -194,7 +194,7 @@ for imported $r$. There are therefore $2s \times s$ technical coefficients for e
 In time series analyses there will be $2s \times s$ technical coefficients for every country in every year.}.
 These technical coefficients then allow the intermediate requirements (both domestic and imported) to be calculated for any given vector of final, investment and export demands. For sector $s$:
 $$
-x_s = \sum_r{a^\dagger_{s,r}x_r} + f^\dagger_s + n^\dagger_s + e^\dagger_s 
+x_s = \sum_r{a^\dagger_{s,r}x_r} + f^\dagger_s + n^\dagger_s + e_s 
 $$
 or, in matrix representation:
 \begin{align}
@@ -235,7 +235,7 @@ The assumption of fixed import ratios significantly simplifies the model, halvin
 A complete set of inter-sector flows, $\boldsymbol{Z}^{\dagger}$ and $\boldsymbol{Z}^{*}$, relating to both domestically produced and imported goods, may be determined from a single set of combined technical coefficients, $\boldsymbol{A}$ (equal to $\boldsymbol{A}^{\dagger} + \boldsymbol{A}^{*}$), along with an $s$-vector, $\boldsymbol{d}$, of import ratios.
 Additionally, as mentioned above, this also represents a more plausible assumption of how sectors split their purchasing between domestic and imported.
 
-Following equation \eqref{eq:adagger}, and letting $\boldsymbol{f} = \boldsymbol{f}^{\dagger} + \boldsymbol{f}^{*}$ and $\boldsymbol{n} = \boldsymbol{n}^{\dagger} + \boldsymbol{n}^{*}$ represent combined final demand and investments respectively, the technical coefficients can then be calculated as:
+If the total final demand for both domestic \textit{and} imported goods is defined as $\boldsymbol{f} = \boldsymbol{f}^{\dagger} + \boldsymbol{f}^{*}$ and similarly for total investments, $\boldsymbol{n} = \boldsymbol{n}^{\dagger} + \boldsymbol{n}^{*}$, then, following equation \eqref{eq:adagger}, the technical coefficients can be calculated as:
 \begin{equation}
 a_{r,s} = \frac{z_{r,s}}{x_s}
 \end{equation}
@@ -266,7 +266,7 @@ Having calculated the total production, $\boldsymbol{x}$, in equation \eqref{eqn
 \boldsymbol{Z^\dagger}& = (\boldsymbol{I} - \boldsymbol{\hat{d}})
 	\boldsymbol{Z}\label{eqn:zstar}
 \end{align}
-Additional benefits of the import ratios assumption include the fact that final demand and investment have only $s$ elements to be specified, rather than the $2s$ elements shown in equation \eqref{eqn:T}.
+Another benefit of the import ratios assumption is that final demand and investment have only $s$ elements to be specified, rather than the $2s$ elements shown in equation \eqref{eqn:T}.
 This implies that consumers have no preference between domestic and imported goods.
 Rather it is up to the sectors to decide how best to meet the single demand for their product.
 
