@@ -381,7 +381,7 @@ Behind this elegant and efficient formulation are the assumptions that:
 The undeniable computational convenience of the traditional method of solving IO-models is no longer a sufficient justification for its use, if it is accompanied by assumptions which would not otherwise be made.
 
 The model in its current form relaxes none of the three assumptions given above, but the separation of international trade from individual domestic economies offers the flexibility to do so in future work, simply by making the desired alterations to the country-level model.
-Such alterations would be more straightforward to perform and more intuitively comprehensible in this model than in an world input-output table, where changing any individual process would require consideration of the entire system and would likely necessitate a completely new approach to finding solutions.
+Such alterations would be more straightforward to perform and more intuitively comprehensible in this model than in an unwieldy whole-world input output model, in which changing any individual process would require consideration of the entire system and would likely necessitate a completely new approach to finding solutions.
 Recent work on complexity in economics such as \textcite{beinhocker_origin_2006} and \textcite{ramalingam_exploring_2009} supports the thesis that many of the interesting phenomena in macroeconomics happen when systems are out of equilibrium.
 With this in mind, a routine is described below for solving the model iteratively, rather than through a single, large matrix inversion.
 
@@ -594,7 +594,7 @@ This may perhaps be evidence of the much-vaunted end of low labour costs in Chin
 
 \begin{figure}
 \centering
-%\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
+\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
 \caption{The total response of the global economy to a reduction in final demand, averaged across every sector in a country. 
 `Response' is defined as the total production lost across all sectors.
 Here, response has been divided into domestic, where the response is measured only in the country whose final demand has been reduced, and foreign, where the response is measured in all other countries only.
@@ -617,14 +617,14 @@ Further research might be put into which sectors cause the largest share of thes
 
 \begin{figure}[tb]
 \centering
-%\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
+\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
 \caption{}
 \label{fig:phi-vs-pop}
 \end{figure}
 
 \subsection{A unified network approach}
 The flow of products between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{nystuen_graph_1961,serrano_topology_2003,bhattacharya_international_2008,baskaran_heckscher-ohlin_2011}.
-Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011}.
+Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011,fedriani_simplifying_2012}.
 Network science has developed useful ways to analyse the sort of weighted, directed networks which the constitute the present model, but a single network representation is required which combines the international and the sub-national networks.
 
 Recall from section \ref{sec:importratios} above, that products arriving at the shores of an importing country are put into a warehouse along with domestically produced products, at which point the two become indistinguishable.
@@ -664,7 +664,7 @@ Along with the sector-to-sector flows given by equation \eqref{eqn:zstar}, this 
 \caption{A network representation of the seven most-affected countries following a reduction in final demand for the Chinese vehicles sector. Node size is proportional to eigenvector centrality, and edge width is proportional to the change in flow.}\label{fig:chnvehtop6}
 \end{figure}
 
-This reformulation demonstrates the connection between the model described in this paper and the established world input-output table approach, allowing us to visualise the individual country-sector to country-sector flows (or changes in such flows) for any model scenario, such as that calculated in section \ref{ss_simple_modelling_approaches} in response to a reduction of demand in China for the Vehicles sector by \$1M.
+This reformulation demonstrates the connection between the model described in this paper and the established whole-world input-output model approach, allowing us to visualise the individual country-sector to country-sector flows (or changes in such flows) for any model scenario, such as that calculated in section \ref{ss_simple_modelling_approaches} in response to a reduction of demand in China for the Vehicles sector by \$1M.
 
 The change to every such flow (both $y_{rs}^{(i,j)}$ and $z_{rs}^{(i)}$ type flows) in the eight most-affected countries is recorded and visualised in figure \ref{fig:chnvehtop6}.
 Node size is proportional to eigenvector centrality and the edge weight is proportional to the change induced in the particular flow be the reduction in final demand.
