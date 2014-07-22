@@ -52,9 +52,13 @@ The new model is shown to be equivalent to an MRIO under an additional assumptio
 \section{Introduction}
 The objective of this paper is to present a global economic model that can be used as the basis for assessing the impacts of future changes in trade, migration, security and development aid.
 The model presented here represents a first `proof of concept' step towards this ambitious goal.
+At this stage, the focus is on creating a model of global trade which will form a skeleton onto which additional social science models will be added in future work.
 The economies of individual countries are represented as 35-sector input-output models, each of which is linked through trade flows representing imports and exports.
 This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{timmer_world_2012}, a collection of national input-output tables (NIOTs) for 40 countries across 17 years, from 1995 to 2011.
 The NIOTs are linked through data from the UN covering trade in both products\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
+
+While other models of world trade based on the input-output methodology exist, the model presented here is one of the first to integrate the extremely detailed internal economic data provided by the WIOD with the enormous wealth of trade data from the UN COMTRADE database, resulting in a picture of global trade that includes an unparalleled amount of real economic information.
+The use of such extensive data sources and the simplicity and flexibility of the model proposed will allow for the thorough investigation of a broad sweep of economic scenarios in future work.
 
 The remainder of this paper is structured as follows: 
 Section \ref{sec:litreview} gives an overview of existing work in this area;
@@ -378,7 +382,7 @@ Behind this elegant and efficient formulation are the assumptions that:
 The undeniable computational convenience of the traditional method of solving IO-models is no longer a sufficient justification for its use, if it is accompanied by assumptions which would not otherwise be made.
 
 The model in its current form relaxes none of the three assumptions given above, but the separation of international trade from individual domestic economies offers the flexibility to do so in future work, simply by making the desired alterations to the country-level model.
-Such alterations would be more straightforward to perform and more intuitively comprehensible in this model than in an world input-output table, where changing any individual process would require consideration of the entire system and would likely necessitate a completely new approach to finding solutions.
+Such alterations would be more straightforward to perform and more intuitively comprehensible in this model than in a world input-output table, where changing any individual process would require consideration of the entire system and would likely necessitate a completely new approach to finding solutions.
 Recent work on complexity in economics such as \textcite{beinhocker_origin_2006} and \textcite{ramalingam_exploring_2009} supports the thesis that many of the interesting phenomena in macroeconomics happen when systems are out of equilibrium.
 With this in mind, a routine is described below for solving the model iteratively, rather than through a single, large matrix inversion.
 
@@ -470,7 +474,7 @@ In the first run through the iteration, this stop condition will certainly fail,
 
 \subsubsection*{International trade model}
 The import demands calculated in the country-level models can be divided up into export demands using the import propensities using to equation \eqref{eqn:emodel}.
-These new export demands replace the unwieldexport demands from the previous iteration (which were all zero the first time round).
+These new export demands replace the export demands from the previous iteration (which were all zero the first time round).
 With a new set of export demands calculated the algorithm returns to the country-level model.
 
 The iteration continues in this way, moving between the country-level and the international-level models, until the system of imports and exports converges and the stop condition is met \footnote{An analysis of the stability and convergence of the algorithm is the focus of upcoming work by CITE ANTHONY HERE???}.
