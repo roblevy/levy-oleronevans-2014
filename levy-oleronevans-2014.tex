@@ -141,7 +141,7 @@ The total import of sector $s$ into country $i$ is the sum of all intermediate s
 It should be noted that, in this iteration of the model, imported products may not be directly exported, though they may naturally supply intermediate demand of sectors whose output is itself exported.
 In other words, \textit{re-exports} are set to zero:
 \begin{equation}\label{eqn:m}
-m_s^{(i)}=\sum\limits_{t}z_{s,t}^{*(i)} + f_s^* + n_s^*
+m_s^{(i)}=\sum\limits_{t}z_{s,t}^{*(i)} + f_s^{*(i)} + n_s^{*(i)}
 \end{equation}
 
 For a particular sector, the phrase `total demand' is used to refer to the sum of final demand, investments and exports, including domestically produced and imported products.
@@ -605,7 +605,7 @@ Further research might be put into which sectors cause the largest share of thes
 
 \subsection{A unified network approach}
 The flow of products between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{nystuen_graph_1961,serrano_topology_2003,bhattacharya_international_2008,baskaran_heckscher-ohlin_2011}.
-Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011}.
+Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011,fedriani_simplifying_2012}.
 Network science has developed useful ways to analyse the sort of weighted, directed networks which the constitute the present model, but a single network representation is required which combines the international and the sub-national networks.
 
 Recall from section \ref{sec:importratios} above, that products arriving at the shores of an importing country are put into a warehouse along with domestically produced products, at which point the two become indistinguishable.
