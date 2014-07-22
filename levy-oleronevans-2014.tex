@@ -363,6 +363,35 @@ which allows it to produce `for free' (in the sense that there is no intermediat
 
 Other than these aspects, the RoW behaves just like a normal country: it has a set of import propensities relating its imports to each other country, and each other country will have an import propensity relating to trade with the RoW.
 
+\subsection{Services trade data}
+Data on trade in goods is based on the very detailed records kept by border agencies for gathering the appropriate taxes.
+For this reason, the goods trade data can be considered to be of high quality.
+Since the supply of services is harder to track, the data on trade in service goods\footnote{taken from http://unstats.un.org/unsd/servicetrade/default.aspx} is considerably coarser.
+Specifically, many countries report only the total quantity of services imported and exported, not the origin and destination of any particular bilateral trade flow.
+In order to estimate the bilateral flows required by \eqref{eqn:importpropensities} for the calculation of import propensities, these flow totals must first be divided between trade partners\footnote{Where data on a particular flow is reported from both the importer and the exporter, the data from the importer is given preference.
+Data from the exporter is only used where the importer reports no data.}.
+
+This is done using a method of iterative proportional fitting introduced by \textcite{deming_least_1940}.
+The basic algorithm for balancing $n$ totals into a matrix of $n \times n$ bilateral flows works as follows:
+\begin{enumerate}
+\itemsep -0.2em 
+\item Initialise an $n \times n$ matrix with 1s (or any other arbitrary starting value)
+\item Multiply each row vector such that the sum of the elements is equal to the required total outflow \label{item:rows}
+\item Multiply each column vector in an identical fashion such that they sum to the required total inflow \label{item:cols}
+\item Iterate steps \ref{item:rows} and \ref{item:cols} until the system converges (in the sense of the sum of the squared difference between each element in the matrix of the current iteration and that of the previous iteration being less than some $\epsilon > 0$)
+\end{enumerate}
+The procedure is followed $S$ times, producing one flow matrix per sector, with two changes specific to this situation.
+\subsubsection*{Importing own exports}
+The commodities trade data report no flows originating from and arriving to the same country.
+The import propensities $p_s^{(i,i)}$ are therefore set to zero.
+To ensure that the outcome of the fitting procedure adheres to this, the initial matrix is modified to have a zero along its diagonal.
+Since the fitting consists only of multiplications, any zeros in the initial matrix will remain zero in the balanced matrix.
+
+\subsubsection*{The rest of the world}
+Since total imports and total exports will inevitably not be equal per sector, a `rest of world' (RoW) is added to absorb any excess.
+If exports exceed imports, the RoW is added as an additional column (importer) and vice versa.
+The initial matrix is thus either wide or tall, depending on the relevant trade totals.
+
 \section{Solving the model}\label{sec:algorithm}
 To get production requirements from traditional WIOT, it is sufficient to invert the matrix and solve for $\boldsymbol{x}$ directly via Leontief's famous equation:
 \begin{equation}
