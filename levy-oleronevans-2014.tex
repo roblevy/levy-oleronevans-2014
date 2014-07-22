@@ -490,7 +490,9 @@ Since the WIOD reports product flows in millions of US dollars (\$M), this will 
 \label{ss_simple_modelling_approaches}
 
 \subsubsection*{Economic significance}
-A simple way to measure the significance to the global economy (hereafter `significance') of a sector is to model the reduction of final demand for the products of that sector by one unit, and measure the response of each other sector in each other country in the model. INSERT SELLING SENTENCE
+A simple way to measure the significance to the global economy (hereafter `significance') of a particular sector in a given country is to artificially reduce final demand for the products of that country-sector by one unit, to recalculate all flows in the model based on this new final demand and to measure the response of each other sector in each other country in the model.
+
+This is a particularly powerful means of assessing the significance of a given country-sector, because it not only takes account of the \textit{direct} effects of such a change - a reduction in the output of the sector in question and of those sectors supplying that sector's intermediate demand - but also of the full spectrum of \textit{indirect} effects, on those sectors which supplied the demand of the sectors who supplied the sector in question, on \textit{their} suppliers and so on.
 
 We can formalise the final-demand change in sector $s$ in country $i$ as:
 
@@ -674,19 +676,29 @@ This diagram reveals the patterns and shapes of the various economies which woul
 
 
 \section{Conclusions}\label{sec:conclusions}
-This paper has presented a new model of global trade which separates the modelling approach to the internal workings of an economy and the global trade network. 
-It is solved iteratively, thereby avoiding the limitations and assumptions of the traditional world input-output table approach which are less necessary in this age of very fast computing.
-The model is extensible to allow for the addition of non-linear production functions, limited production capacities and non-clearing markets.
-It also offers a richer set of parameters, with the addition of import ratios and import propensities, which will help integrate it with other social science models, such as those which model how countries choose to trade with one another.
+In this paper, a new model of global trade has been presented, combining two distinct modelling approaches for the internal workings of national economies and for international trade.
+The model incorporates information from two extremely extensive data sets, the UN COMTRADE database and the World Input-Output Database, giving it a level of real world economic detail exceeding that of almost all previous work.
 
-A new measure (SELL MORE - A \textbf{WONDROUS} NEW MEASURE)  of the economic significance of a sector was introduced, and China was found to be a significant outlier in its economic significance in domestic terms.
-A measure of economic self-reliance was introduced which was found to vary inversely with population.
+The model equations are solved iteratively, thus avoiding the limitations and assumptions of the traditional world input-output table approach which are no longer necessary in this age of very fast computing, and lending the model the flexibility to accommodate a wide variety of possible extensions, such as the consideration of non-linear production functions, limited production capacities and non-clearing markets.
+It also offers a rich set of parameters to examine and manipulate, with the addition of import ratios and import propensities to the traditional approach of national input-output models, which will facilitate its integration with other social science models, such as those that model how countries choose to trade with one another.
 
-Finally, a route from the model presented back to a traditional world input-output table approach, allowing access to analysis from the network science literature, of which a very simple example was presented.
+The model allows for the definition and analysis of a powerful new measure of the global economic significance of each sector within a national economy, gauging the degree to which that sector drives economic activity across the world. In initial investigations, China was found to be a considerable outlier in terms of its economic significance, driven by high consumption of its own domestically produced products and services. Following this analysis, a measure of economic self-reliance was introduced, which was was found to vary inversely with population. These results represent preliminary analyses only, with far more scope for detailed investigation of international trade patterns and alternative global economic scenarios now that the model is operational.
 
-Further work should be done on combining this model with other social science models, particularly those of migration, trade, international security and development aid, and also with the relaxing of the traditional input-output assumptions mentioned above, perhaps starting with production limits.
+Finally, a method is presented to transform the structure of the model into that of a traditional world input-output table, allowing for the deployment of the tools and analyses of the network science literature. A very simple example of this approach was presented, with further analyses to follow in future work.
 
-INSERT SELLING PARAGRAPH
+Further work on the model will include the relaxation of the traditional input-output assumptions, beginning with the introduction limits on production capacity, with the goal of creating a fully dynamic version of the model to analyse the change in trade patterns over time. Ultimately, the model will also be combined with further submodels representing migration, international security and the distribution of development aid, to create a fully integrated representation of these global processes.
+
+
+
+
+
+
+\section*{Acknowledgements}
+
+The authors acknowledge the financial support of the UK Engineering and Physical Sciences Research Council (EPSRC) under the grant ENFOLD-ing - Explaining, \linebreak Modelling, and Forecasting Global Dynamics, reference \linebreak EP/H02185X/1. 
+
+%The authors would also like to thank the anonymous reviewers, whose constructive comments contributed significantly to the final version of this article.
+
 
 \printbibliography
 
