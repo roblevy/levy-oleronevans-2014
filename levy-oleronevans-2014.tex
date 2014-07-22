@@ -477,9 +477,10 @@ The import demands calculated in the country-level models can be divided up into
 These new export demands replace the export demands from the previous iteration (which were all zero the first time round).
 With a new set of export demands calculated the algorithm returns to the country-level model.
 
-The iteration continues in this way, moving between the country-level and the international-level models, until the system of imports and exports converges and the stop condition is met \footnote{An analysis of the stability and convergence of the algorithm is the focus of upcoming work by CITE ANTHONY HERE???}.
+The iteration continues in this way, moving between the country-level and the international-level models, until the system of imports and exports converges and the stop condition is met \footnote{An analysis confirming the convergence of the algorithm is the focus of upcoming work by CITE ANTHONY HERE???}.
 
-INSERT SELLING SENTENCE
+Solving the system algorithmically rather than relying on the standard methods of linear algebra allows for a greater flexibility in the way that the model may be extended in future work. For example, provided that care was taken to maintain its stability, the algorithmic approach could be applied even if the assumption of linear production functions were to be relaxed in order to model economies of scale.
+
 
 \section{Analysis}\label{sec:analysis}
 The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's product.
