@@ -45,16 +45,19 @@ The model is based on input-output models for 40 countries, linked with trade da
 This is made possible by the World Input-Output Database, a collection of input-output tables for 40 countries across 15 years, and by databases of commodities and services trade from the UN.
 The model is constructed using a minimal number of assumptions, seeks to be as parsimonious as possible in terms of the number of parameters, and is based to a great extent on empirical observation.
 Some initial analysis of the model and its properties is also presented.
-INSERT SELLING SENTENCE
+INSERT SELLING SENTENCE - ACTUALLY THE ABSTRACT NEEDS A GOOD REWRITE
 \end{abstract}
 
 \section{Introduction}
 The objective of this paper is to present a global economic model that can be used as the basis for assessing the impacts of future changes in trade, migration, security and development aid.
 The model presented here represents a first `proof of concept' step towards this ambitious goal.
+At this stage, the focus is on creating a model of global trade, which will form a skeleton to which additional processes will be added in future work.
 The economies of individual countries are represented as 35-sector input-output models, each of which is linked through trade flows representing imports and exports.
 This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{timmer_world_2012}, a collection of national input-output tables (NIOTs) for 40 countries across 17 years, from 1995 to 2011.
 The NIOTs are linked through data from the UN covering trade in both products\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
-INSERT SELLING SENTENCE
+
+While other models of world trade based on the input output methodology exist, the model presented here is one of the first to integrate the extremely detailed internal economic data provided by the WIOD with the enormous wealth of trade data from the UN COMTRADE database, resulting in a picture of global trade that includes an unparalleled amount of real economic information.
+The use of such extensive data sources and the simplicity and flexibility of the model proposed will allow for the thorough investigation of a broad sweep of economic scenarios in future work.
 
 The remainder of this paper is structured as follows: 
 Section \ref{sec:litreview} gives an overview of existing work in this area;
@@ -591,7 +594,7 @@ This may perhaps be evidence of the much-vaunted end of low labour costs in Chin
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
+%\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
 \caption{The total response of the global economy to a reduction in final demand, averaged across every sector in a country. 
 `Response' is defined as the total production lost across all sectors.
 Here, response has been divided into domestic, where the response is measured only in the country whose final demand has been reduced, and foreign, where the response is measured in all other countries only.
@@ -614,14 +617,14 @@ Further research might be put into which sectors cause the largest share of thes
 
 \begin{figure}[tb]
 \centering
-\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
+%\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
 \caption{}
 \label{fig:phi-vs-pop}
 \end{figure}
 
 \subsection{A unified network approach}
 The flow of products between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{nystuen_graph_1961,serrano_topology_2003,bhattacharya_international_2008,baskaran_heckscher-ohlin_2011}.
-Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011,fedriani_simplifying_2012}.
+Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011}.
 Network science has developed useful ways to analyse the sort of weighted, directed networks which the constitute the present model, but a single network representation is required which combines the international and the sub-national networks.
 
 Recall from section \ref{sec:importratios} above, that products arriving at the shores of an importing country are put into a warehouse along with domestically produced products, at which point the two become indistinguishable.
