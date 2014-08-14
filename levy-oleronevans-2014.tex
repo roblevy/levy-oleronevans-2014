@@ -43,10 +43,11 @@
 This paper presents a new, flexible and extensible alternative to multi-regional input-output (MRIO) for modelling the global economy.
 The limited parameter set of MRIO (technical coefficients only) is extended to include two new sets of parameters, import ratios and import propensities.
 These new parameter sets assist in the interaction of the new model with other social science models such as those of trade, migration, international security and development aid.
-The model uses 40 input-output models from the World Input-Output Database as descriptions of the internal workings of countries' economies, and couples these loosely using trade data for commodities and services from the UN.
+The model uses input-output models as descriptions of the internal workings of countries' economies, and couples these loosely using trade data for commodities and services from the UN.
 The model is constructed using a minimal number of assumptions, seeks to be as parsimonious as possible in terms of the number of parameters, and is based to a great extent on empirical observation.
-Some initial analysis is presented (CHANGE THIS).
-The new model is shown to be equivalent to an MRIO under an additional assumption, allowing existing techniques for MRIO analysis to also be applied to this model.
+Two new metrics are introduced, measuring sectors' economic significance and economic self-reliance.
+The Chinese vehicles sector is shown to be the world's most significant, and self-reliance is shown to be strongly correlated with population.
+The new model is shown to be equivalent to an MRIO under an additional assumption, allowing existing analysis techniques to be applied.
 \end{abstract}
 
 \section{Introduction}
@@ -57,7 +58,7 @@ The economies of individual countries are represented as 35-sector input-output 
 This has recently been made feasible by the publication of the World Input-Output Database (WIOD) \parencite{timmer_world_2012}, a collection of national input-output tables (NIOTs) for 40 countries across 17 years, from 1995 to 2011.
 The NIOTs are linked through data from the UN covering trade in both products\footnote{comtrade.un.org/db} and services\footnote{unstats.un.org/unsd/servicetrade/}.
 
-While other models of world trade based on the input-output methodology exist, the model presented here is one of the first to integrate the extremely detailed internal economic data provided by the WIOD with the enormous wealth of trade data from the UN COMTRADE database, resulting in a picture of global trade that includes an unparalleled amount of real economic information.
+While other models of world trade based on the input-output methodology exist, the model presented here is one of the first to integrate the extremely detailed internal economic data provided by WIOD with the enormous wealth of trade data from the UN COMTRADE database, resulting in a picture of global trade that includes an unparalleled amount of real economic information.
 The use of such extensive data sources and the simplicity and flexibility of the model proposed will allow for the thorough investigation of a broad sweep of economic scenarios in future work.
 
 The remainder of this paper is structured as follows: 
@@ -80,7 +81,7 @@ See section \ref{sec:iots} for more on this subject.
 In the years since Leontief published his global model, input-output analysis has been largely restricted to regional studies, of which \textcite{akita_interregional_1993}, \textcite{khan_sectoral_1999} and \textcite{luo_power--pull_2013} are examples; and studies related to energy and the environment, such as  \textcite{leontief_environmental_1970}, \textcite{joshi_product_1999}, \textcite{bergh_handbook_2002} and \textcite{hendrickson_environmental_2006}.
 
 However, much more recently, attention has returned to input-output modelling in a global context more generally. \textcite{tukker_global_2013} describe how several multi-regional input-output (MRIO) models have been developed in the very recent literature.
-These are, along with the WIOD which is used in the present model, EORA \parencite{lenzen_building_2013}, EXIOPOL \parencite{tukker_exiopol_2013} and the more mature, but proprietorial GTAP \parencite{walmsley_introduction_2012}.
+These are, along with WIOD which is used in the present model, EORA \parencite{lenzen_building_2013}, EXIOPOL \parencite{tukker_exiopol_2013} and the more mature, but proprietorial GTAP \parencite{walmsley_introduction_2012}.
 
 Each of these existing models of the global economy extends the idea of the national input-output table to an international setting: where in an NIOT the magnitude of every bilateral sector--sector flow is recorded for a given country, these projects record the magnitude of every country/sector--country/sector flow.
 Thus, for example, the extent to which British agriculture purchases from Belgian manufacturing is recorded in dollar amounts.
@@ -101,7 +102,7 @@ All product flows are given by value, measured in millions of (current price) US
 For the remainder of this paper the terms `quantity' and `value' will therefore also be used interchangeably.
 Products produced domestically are labelled with a dagger superscript ($\dagger$) and imported products with an asterisk.
 
-Table \ref{tbl:cvars} shows the quantities taken directly from data published by the WIOD which characterise a country's economy for a particular year. For final demand and investment, the values are summed across the columns mentioned.
+Table \ref{tbl:cvars} shows the quantities taken directly from data published by WIOD which characterise a country's economy for a particular year. For final demand and investment, the values are summed across the columns mentioned.
 \begin{table}
 \begin{center}
 \begin{tabular}{cp{5cm}l}
@@ -124,7 +125,7 @@ Table \ref{tbl:cvars} shows the quantities taken directly from data published by
 \end{table}
 Note that for clarity, no time subscript is added. In future time-series analyses such a subscript would have to be added.
 
-The following rows of the NIOTs are combined into a single `Value Added' flow source (not completely equivalent to ``Value added at basic prices", used in the WIOD), which represents the total value of products produced by each sector after the subtraction of the sum of its intermediate demands on other sectors:
+The following rows of the NIOTs are combined into a single `Value Added' flow source (not completely equivalent to ``Value added at basic prices", used in WIOD), which represents the total value of products produced by each sector after the subtraction of the sum of its intermediate demands on other sectors:
 \begin{enumerate}[--]
 \itemsep -0.4em 
 \item Taxes less subsidies on products
@@ -323,7 +324,7 @@ The propensity for country $j$ to import product $s$ from country $i$ is given b
 \begin{equation}\label{eqn:importpropensities}
 p^{(i,j)}_s = \frac{y^{(i,j)}_s}{\sum_k{y^{(k,j)}_s}}
 \end{equation}
-where $y^{(i,j)}_s$ is the trade flow of product $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind the WIOD. This was of invaluable help in creating the present model.}.
+where $y^{(i,j)}_s$ is the trade flow of product $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind WIOD. This was of invaluable help in creating the present model.}.
 
 Given the import requirements of each country from equation \eqref{eqn:mmodel} and the import propensities from \eqref{eqn:importpropensities}, the export demand on sector $s$ in country $i$ due to demand from country $j$ can be calculated as:
 \begin{equation*}
@@ -334,10 +335,10 @@ and total export demand in country $i$ is therefore:
 e_s^{(i)} = \sum_k{p_s^{(i,k)}m_s^{(k)}}
 \end{equation}
 \noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$, of all sectors in all countries; the intermediate input-output flows, $z_{s,t}^{\dagger(i)}$ and $z_{s,t}^{*(i)}$; imports, $m_s^{(i)}$; exports, $e_s^{(i)}$; and all trade flows, $y_s^{(i,j)}$, given a set of technical coefficients, $a_{r,s}^{(i)}$, import ratios, $d_s^{(i)}$, trade propensities, $p_s^{(i,j)}$, and final demands\footnote{In the present version of the model, investments, $n_s^{(i)}$, are set to zero. 
-Data on investments is provided by the WIOD but it is not used in this version.}, $f_s^{(i)}$. Folowing a given set of changes to any of the latter four parameters, all of the former six categories of flows can be found.
+Data on investments is provided by WIOD but it is not used in this version.}, $f_s^{(i)}$. Folowing a given set of changes to any of the latter four parameters, all of the former six categories of flows can be found.
 
 \subsection{Setting model parameters from data}
-As outlined above, the model takes four groups of parameters and produces a complete set of flows within countries (input-output flows) and a complete set of trade flows (imports and exports) between countries. These four groups of parameters are either calculated from the NIOTs provided by the WIOD or from commodity and services trade data provided by the UN.
+As outlined above, the model takes four groups of parameters and produces a complete set of flows within countries (input-output flows) and a complete set of trade flows (imports and exports) between countries. These four groups of parameters are either calculated from the NIOTs provided by WIOD or from commodity and services trade data provided by the UN.
 To recap, the four groups of parameters are:
 \begin{enumerate}
 \item Final demand, $f_s^{(i)}$: the quantity of a product consumed by the public and the government of a particular country. These are taken directly from the NIOTs using the columns described in table \ref{tbl:cvars}.
@@ -347,7 +348,7 @@ To recap, the four groups of parameters are:
 \end{enumerate}
 
 \subsection{Modelling the `rest of the world'}\label{sec:RoW}
-The UN trade data records flows to and from many countries (as well as many non-country `trade areas') which are not part of the WIOD. If these flows were simply ignored, then countries which trade significantly with these areas would be misrepresented in terms of extent to which they trade with the countries which \textit{are} in the model. To avoid this, the model includes a `rest of the world' entity (RoW) which receives all exports going to countries (`stray' exports) not explicitly modelled, and provides all imports coming from such countries (`stray imports'). The RoW has no technical coefficients and no import ratios.
+The UN trade data records flows to and from many countries (as well as many non-country `trade areas') which are not part of WIOD. If these flows were simply ignored, then countries which trade significantly with these areas would be misrepresented in terms of extent to which they trade with the countries which \textit{are} in the model. To avoid this, the model includes a `rest of the world' entity (RoW) which receives all exports going to countries (`stray' exports) not explicitly modelled, and provides all imports coming from such countries (`stray imports'). The RoW has no technical coefficients and no import ratios.
 
 The RoW is initialised to have a final demand, $f_s$, equal to the total stray exports in each sector across the whole model\footnote{flows from countries not in the model to other countries not in the model are ignored.}. Then, since the RoW has no import ratios, instead of solving equation \eqref{eqn:mmodel} to calculate import demand, it simply sets
 \begin{equation}\label{eqn:RoW_imports}
@@ -506,18 +507,18 @@ The import demands calculated in the country-level models can be divided up into
 These new export demands replace the export demands from the previous iteration (which were all zero the first time round).
 With a new set of export demands calculated the algorithm returns to the country-level model.
 
-The iteration continues in this way, moving between the country-level and the international-level models, until the system of imports and exports converges and the stop condition is met \footnote{An analysis confirming the convergence of the algorithm is the focus of upcoming work by CITE ANTHONY HERE???}.
+The iteration continues in this way, moving between the country-level and the international-level models, until the system of imports and exports converges and the stop condition is met \footnote{An analysis confirming the convergence of the algorithm is the focus of upcoming work by Anthony Korte of the UCL Department of Mathematics.}.
 
 Solving the system algorithmically rather than relying on the standard methods of linear algebra allows for a greater flexibility in the way that the model may be extended in future work. For example, provided that care was taken to maintain its stability, the algorithmic approach could be applied even if the assumption of linear production functions were to be relaxed in order to model economies of scale.
 
 
 \section{Analysis}\label{sec:analysis}
 The model combining input-output country descriptions and the international trade network allows for the measurement of the total input required to make a single unit of a particular sector's product.
-Since the WIOD reports product flows in millions of US dollars (\$M), this will also be the unit of all the following analysis.
+Since WIOD reports product flows in millions of US dollars (\$M), this will also be the unit of all the following analysis.
 In all the following analysis, the model was initialised with data from 2010.
 
 \subsection{Simple modelling approaches}
-\label{ss_simple_modelling_approaches}
+\label{sec:simple_modelling_approaches}
 
 \subsubsection*{Economic significance}
 A simple way to measure the significance to the global economy (hereafter `significance') of a particular sector in a given country is to artificially reduce final demand for the products of that country-sector by one unit, to recalculate all flows in the model based on this new final demand and to measure the response of each other sector in each other country in the model.
@@ -651,12 +652,12 @@ Further research might be put into which sectors cause the largest share of thes
 
 \begin{figure}[tb]
 \centering
-%\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
+\includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
 \caption{}
 \label{fig:phi-vs-pop}
 \end{figure}
 
-\subsection{A unified network approach}
+\subsection{A unified network approach}\label{sec:networkapproach}
 The flow of products between countries can be viewed as a weighted, directed network, where countries are nodes, and the weights of each edge represents the magnitude of the flow between them \parencite{nystuen_graph_1961,serrano_topology_2003,bhattacharya_international_2008,baskaran_heckscher-ohlin_2011}.
 Similarly with the sector-sector flows which constitute an input-output model \parencite{blochl_vertex_2011,fedriani_simplifying_2012}.
 Network science has developed useful ways to analyse the sort of weighted, directed networks which the constitute the present model, but a single network representation is required which combines the international and the sub-national networks.
@@ -703,6 +704,31 @@ This reformulation demonstrates the connection between the model described in th
 The change to every such flow (both $y_{rs}^{(i,j)}$ and $z_{rs}^{(i)}$ type flows) in the eight most-affected countries is recorded and visualised in figure \ref{fig:chnvehtop6}.
 Node size is proportional to eigenvector centrality and the edge weight is proportional to the change induced in the particular flow be the reduction in final demand.
 This diagram reveals the patterns and shapes of the various economies which would be hard to pick out in the raw flow matrix.
+
+\subsection{Comparison with a world input-output table}
+As discussed in section \ref{sec:litreview}, the modelling approach presented here relaxes the rigidity of the world input-ouput table's assumptions about the patterns of global trade.
+In so doing, it also reduces the amount of data required to estimate the place in the world of countries which are not covered by WIOD.
+But since the present iteration of the model can be made equivalent to a WIOT (as shown in section \ref{sec:networkapproach}), any of the analyses presented here could equally well be performed using the world input-output table directly.
+It is therefore important to verify that the model in its present, most simple form, behaves similarly to a WIOT before any further development is done.
+
+To this end, the results of the experiment of section \ref{sec:simple_modelling_approaches}, reducing demand for Chinese vehicles, is repeated using a WIOT, and the results are compared in figure \ref{fig:chn_vec_model_vs_wiot}.
+
+The response to a reduction in demand for Chinese vehicles is summed over sectors in each country.
+The countries are then ranked according to the size of the response.
+The ranks produced by the WIOT are shown on the left-hand side, and those produced by the present model on the right.
+Visually, the results seem broadly comparable and have a Spearman rank correlation coefficient \parencite{spearman_proof_1904} of 0.96.
+This gives some confidence in concluding that this first, simplest iteration of the model behaves in a similar fashion to the WIOT it seeks to extend.
+
+\begin{figure}[p]
+\centering
+\includegraphics[height=0.8\textheight]{"images/chn_vec_rank_change_wiot_vs_model".pdf}
+\caption{A comparison of the results of the Chinese vehicle experiment performed on a WIOT (on the left) and on the present model (on the right).
+Vertical position represents the rank of the country in terms of how affected it is by a reduction in demand for Chinese vehicles.\\
+\textsuperscript{*}Taiwan is ranked last in the present model.
+This is because the UN provides no trade data for the territory.
+All Taiwan's import ratios are therefore zero (i.e. Taiwan is modelled as being entirely self-sufficient.)}
+\label{fig:chn_vec_model_vs_wiot}
+\end{figure}
 
 
 \section{Conclusions}\label{sec:conclusions}
