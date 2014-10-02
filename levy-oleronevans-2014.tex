@@ -361,59 +361,32 @@ Following a given set of changes to any of these latter four sets of coefficient
 \subsection{Setting model coefficients from data}
 As outlined above, the model takes four groups of coefficients and produces a complete set of flows within countries (input--output flows) and a complete set of trade flows (imports and exports) between countries.
 These four groups of coefficients are either calculated from the NIOTs provided by WIOD or from commodity and services trade data provided by the UN.
-Here, we summarise the four groups of coefficients and the way in which they are set from data.
-\begin{enumerate}
-\item Final demand, $f_s$: the quantity of a product consumed by the public and the government of a particular country. These are taken directly from the NIOTs using the columns described in table \ref{tbl:cvars}.
-\item Technical coefficients, $a_{r,s}$: the quantity of product $r$ required in country $i$ to make a single unit of product $s$. Calculated from the NIOTs using \cref{eqn:a_combined}. 
-\item Import ratios, $d_s$: the proportion of country $i$'s total demand for product $s$ which is supplied by imports. Calculated from the NIOTs using \cref{eqn:importratio}.
-\item Import propensities, $p_s^{(i,j)}$: the proportion of country $j$'s total of import of product $s$ which comes from country $i$. Calculated from the UN trade data using \cref{eqn:importpropensities}.
-\end{enumerate}
+\Cref{tbl:the_four_things} summarises the four groups of coefficients and the way in which they are set from data.
+\begin{table}
+    \centering
+    \begin{tabular}{lp{8cm}}
+        \toprule
+    Final demand &  $f_s$ quantity of a product consumed by the public and the government of a
+    particular country.
+    These are taken directly from the NIOTs using the columns described in table \ref{tbl:cvars}. \\
+    \midrule
+    Technical coefficients &  $a_{r,s}$ the quantity of product $r$ required in country $i$
+    to make a single unit of product $s$. Calculated from the NIOTs using \cref{eqn:a_combined}. \\
+    \midrule
+    Import ratios &  $d_s$ the proportion of country $i$'s total demand for product $s$ which is
+    supplied by imports. Calculated from the NIOTs using \cref{eqn:importratio}. \\
+    \midrule
+    Import propensities &  $p_s^{(i,j)}$ the proportion of country $j$'s total of import of
+    product $s$ which comes from country $i$. Calculated from the UN trade data using
+    \cref{eqn:importpropensities}.\\
+    \bottomrule
+    \end{tabular}
+    \caption{The four groups of fixed coefficients in the model, and their construction from data.
+    All other flows, including imports and exports, are derived from these coefficients  mathematically.}
+    \label{tbl:the_four_things}
+\end{table}
 
-\subsection{Modelling the `rest of the world'}\label{sec:RoW}
-The UN trade data records flows to and from many countries (as well as many non-country `trade areas') which are not part of WIOD. If these flows were simply ignored, then countries which trade significantly with these areas would be misrepresented in terms of extent to which they trade with the countries which \textit{are} in the model. To avoid this, the model includes a `rest of the world' entity (RoW) which receives all exports going to countries (`stray' exports) not explicitly modelled, and provides all imports coming from such countries (`stray imports'). The RoW has no technical coefficients and no import ratios.
 
-The RoW is initialised to have a final demand, $f_s$, equal to the total stray exports in each sector across the whole model\footnote{flows from countries not in the model to other countries not in the model are ignored.}. Then, since the RoW has no import ratios, instead of solving \cref{eqn:mmodel} to calculate import demand, it simply sets
-\begin{equation}\label{eqn:RoW_imports}
-\boldsymbol{m} = \boldsymbol{f}
-\end{equation}
-thus importing a fixed amount of each sector, defined by the initial level of stray exports in the data.
-
-The RoW also has a particular way of deriving its total production, $\boldsymbol{x}$. It has no technical coefficients, so cannot solve \cref{eqn:xmodel}. Rather, it simply sets
-\begin{equation}\label{eqn:RoW_total_production}
-\boldsymbol{x} = \boldsymbol{e}
-\end{equation}
-which allows it to produce `for free' (in the sense that there is no intermediate demand) whatever is required of it from other countries. This also has the effect of decoupling the RoW's import side from its export side.
-
-Other than these aspects, the RoW behaves just like a normal country: it has a set of import propensities relating its imports to each other country, and each other country will have an import propensity relating to trade with the RoW.
-
-\subsection{Services trade data}
-Data on trade in goods is based on the very detailed records kept by border agencies for gathering the appropriate taxes.
-For this reason, the goods trade data can be considered to be of high quality.
-Since the supply of services is harder to track, the data on trade in service goods\footnote{taken from http://unstats.un.org/unsd/servicetrade/default.aspx} is considerably coarser.
-Specifically, many countries report only the total quantity of services imported and exported, not the origin and destination of any particular bilateral trade flow.
-In order to estimate the bilateral flows required by \cref{eqn:importpropensities} for the calculation of import propensities, these flow totals must first be divided between trade partners\footnote{Where data on a particular flow is reported from both the importer and the exporter, the data from the importer is given preference.
-Data from the exporter is only used where the importer reports no data.}.
-
-This is done using a method of iterative proportional fitting introduced by \textcite{deming_least_1940}.
-The basic algorithm for balancing $n$ totals into a matrix of $n \times n$ bilateral flows works as follows:
-\begin{enumerate}
-\itemsep -0.2em 
-\item Initialise an $n \times n$ matrix with 1s (or any other arbitrary starting value)
-\item Multiply each row vector such that the sum of the elements is equal to the required total outflow \label{item:rows}
-\item Multiply each column vector in an identical fashion such that they sum to the required total inflow \label{item:cols}
-\item Iterate steps \ref{item:rows} and \ref{item:cols} until the system converges (in the sense of the sum of the squared difference between each element in the matrix of the current iteration and that of the previous iteration being less than some $\epsilon > 0$)
-\end{enumerate}
-The procedure is followed $S$ times, producing one flow matrix per sector, with two changes specific to this situation.
-\subsubsection*{Importing own exports}
-The commodities trade data report no flows originating from and arriving to the same country.
-The import propensities $p_s^{(i,i)}$ are therefore set to zero.
-To ensure that the outcome of the fitting procedure adheres to this, the initial matrix is modified to have a zero along its diagonal.
-Since the fitting consists only of multiplications, any zeros in the initial matrix will remain zero in the balanced matrix.
-
-\subsubsection*{The rest of the world}
-Since total imports and total exports will inevitably not be equal per sector, a `rest of world' (RoW) is added to absorb any excess.
-If exports exceed imports, the RoW is added as an additional column (importer) and vice versa.
-The initial matrix is thus either wide or tall, depending on the relevant trade totals.
 
 \section{Solving the model}\label{sec:algorithm}
 To get production requirements from traditional WIOT, it is sufficient to invert the matrix and solve for $\boldsymbol{x}$ directly via Leontief's famous equation:
@@ -441,12 +414,12 @@ With this in mind, a routine is described below for solving the model iterativel
 \subsection{Algorithm for an iterative solution}
 \begin{figure}[tb]
 \centering %
-\begin{tikzpicture}[>=latex, very thick]
+\begin{tikzpicture}[>=latex, thick]
 	\tikzstyle{all nodes}=[shape=rectangle]
 	\tikzstyle{box}=[draw]
 	% % Nodes
 	% init
-	\node[box,label=above:{Initialisation [ $t=0$ ]}](init)
+	\node[box,label=above:{Initialisation, $k=0$}](init)
 	{$\boldsymbol{e^{(i)}[0] = 0}$};
 	% country-level model
 	\node[box, below right= and -.5cm of init, 
@@ -480,21 +453,21 @@ With this in mind, a routine is described below for solving the model iterativel
 		Is stop condition met?
 		\\
 		$
-		\displaystyle \left| \sum^C_{i=1} \left(\textbf{\textit{m}}^{(i)}[t] -
-		\textbf{\textit{e}}^{(i)}[t] \right) \right| \leq \epsilon
+		\displaystyle \left| \sum^C_{i=1} \left(\textbf{\textit{m}}^{(i)}[k] -
+		\textbf{\textit{e}}^{(i)}[k] \right) \right| \leq \epsilon
 		$
 	};
 	% results
 	\node[box, below=of iteration, align=center](result)
 	[label=left:Results]
 	{
-		$\boldsymbol{x}^{(i)}=\boldsymbol{x}^{(i)}[t]$ \\
-		$\boldsymbol{m}^{(i)}=\boldsymbol{m}^{(i)}[t]$ \\
-		$\boldsymbol{e}^{(i)}=\boldsymbol{e}^{(i)}[t]$
+		$\boldsymbol{x}^{(i)}=\boldsymbol{x}^{(i)}[k]$ \\
+		$\boldsymbol{m}^{(i)}=\boldsymbol{m}^{(i)}[k]$ \\
+		$\boldsymbol{e}^{(i)}=\boldsymbol{e}^{(i)}[k]$
 	};
-	% Exogenous annotation
-	\node[below left=0.5cm and -2cm of country, align=left] {
-	Exogenous: \\
+	% Fixed annotation
+	\node[below left=1cm and -2cm of country, align=left] {
+	Fixed, set by data: \\
 	$\boldsymbol{A}^{(i)}$,
 	$\boldsymbol{\hat{d}}^{(i)}$,
 	$\boldsymbol{f}^{(i)}$,
@@ -504,11 +477,11 @@ With this in mind, a routine is described below for solving the model iterativel
 	\draw [->] (init) |- (country);
 	\draw [->] (country) |- (iteration);
 	\draw [->] (iteration) |- node[right]{no}(trade);
-	\draw [->] (iteration) |- node[below right]{[ $t \rightarrow t+1$ ]}(trade);	
+	\draw [->] (iteration) |- node[below right]{$k \rightarrow k+1$}(trade);	
 	\draw [->] (trade) -| (country);
 	\draw [->] (iteration) -- node[right]{yes}(result);
 \end{tikzpicture}
-\caption{The model algorithm: total production, imports and exports are calculated for a given set of exogenous coefficients. Note that square brackets have been introduced to designate the iteration variable $t$, which tracks the quantities that are iteratively recalculated as the algorithm runs.}\label{fig:algorithm}
+\caption{The model algorithm: total production, imports and exports are calculated for a given set of fixed coefficients. Note that square brackets have been introduced to designate the iteration variable $t$, which tracks the quantities that are iteratively recalculated as the algorithm runs.}\label{fig:algorithm}
 \end{figure}
 
 Figure \ref{fig:algorithm} shows a schematic version of the algorithm for calculating imports and exports from the four groups of coefficients.
@@ -521,7 +494,7 @@ This step maintains the standard input-output matrix inversion.
 From total demand, import demand can be calculated via the import ratios as in \cref{eqn:mmodel}.
 
 \subsubsection*{Iteration condition}
-At this point a `stop condition' is checked: does the total level of global import demand match total exports in each sector, to within some small value,  $\epsilon > 0$\footnote{More specifically, as shown in Figure \ref{fig:algorithm}, we verify that the length of the vector of differences between the global sum of all imports and the global sum of all exports for each sector does not exceed $\epsilon$. This approach ensures that global export and import totals must balance for all sectors simultaneously.}?
+At this point the iteration continues unless the total level of global imports matches, to within some small value $\epsilon > 0$, total exports in each sector\footnote{More specifically, as shown in Figure \ref{fig:algorithm}. we verify that the length of the vector of differences between the global sum of all imports and the global sum of all exports for each sector does not exceed $, \epsilon$. This approach ensures that global export and import totals must balance for all sectors simultaneously.}.
 In the first run through the iteration, this stop condition will certainly fail, because exports have just been set to zero.
 
 \subsubsection*{International trade model}
@@ -545,7 +518,7 @@ In all the following analysis, the model was initialised with data from 2010.
 \subsubsection*{Economic significance}
 A simple way to measure the significance to the global economy (hereafter `significance') of a particular sector in a given country is to artificially reduce final demand for the products of that country-sector by one unit, to recalculate all flows in the model based on this new final demand and to measure the response of each other sector in each other country in the model.
 
-This is a particularly powerful means of assessing the significance of a given country-sector, because it not only takes account of the \textit{direct} effects of such a change - a reduction in the output of the sector in question and of those sectors supplying that sector's intermediate demand - but also of the full spectrum of \textit{indirect} effects, on those sectors which supplied the demand of the sectors who supplied the sector in question, on \textit{their} suppliers and so on.
+This is not only takes account of the \textit{direct} effects of such a change -- a reduction in the output of the sector in question and of those sectors supplying that sector's intermediate demand -- but also of the full spectrum of \textit{indirect} effects, on those sectors which supplied the demand of the sectors who supplied the sector in question, on \textit{their} suppliers and so on.
 
 We can formalise the final-demand change in sector $s$ in country $i$ as:
 
@@ -563,7 +536,7 @@ The total response across all countries and all sectors induced by sector $s$ in
 \begin{equation}
 \eta_s^{(i)} \equiv \Delta x_{s}^{(i)} = \sum_j \sum_r \Delta_{s}^{(i)} x_{r}^{(j)}
 \end{equation}
-and the average response induced by all sectors in country $i$ is:
+and the average response-inducing power of the sectors in country $i$ is:
 \begin{equation}
 \eta^{(i)} = \frac{\sum_s \eta_s^{(i)}}{S}
 \end{equation}
@@ -580,7 +553,7 @@ China is the world's most significant economy, a \$1M reduction in final demand 
 	{
 		\begin{tabular}{lr}
 		\toprule
-		Country & $\eta^{(i)}$\\
+		Country & $\eta^{(i)}$(\$M)\\
 		\midrule
           China &       2.36 \\
  Czech Republic &       1.98 \\
@@ -600,7 +573,7 @@ China is the world's most significant economy, a \$1M reduction in final demand 
 	{
 		\begin{tabular}{lr}
 		\toprule
-		       Sector & $\eta_s^{(\text{China})}$\\
+		       Sector & $\eta_s^{(\text{China})}$(\$M)\\
 		\midrule
 		     Vehicles &       2.47 \\
 		         Food &       2.20 \\
@@ -649,9 +622,9 @@ Its economy is around one-third more significant ($\eta = 2.36$) than that of Br
 Thus China's significance to the world economy shows itself largely in China itself. China is significant to the extent that it uses disproportionately large amounts of its own productive output in its production technology.
 This may perhaps be evidence of the much-vaunted end of low labour costs in China  \parencite{li_end_2012, the_economist_end_2012} although further research would be needed to verify this.
 
-\begin{figure}
+\begin{figure}[tbh]
 \centering
-%\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
+\includegraphics[width=\textwidth]{"images/country response domestic vs foreign - tweaked".pdf}
 \caption{The total response of the global economy to a reduction in final demand, averaged across every sector in a country. 
 `Response' is defined as the total production lost across all sectors.
 Here, response has been divided into domestic, where the response is measured only in the country whose final demand has been reduced, and foreign, where the response is measured in all other countries only.
@@ -662,7 +635,7 @@ The solid line shows the result of an OLS regression, with the grey shaded area 
 \subsubsection*{Economic self-reliance}
 Countries further to the left of Figure \ref{fig:countries_domestic_vs_foreign}, such as Brazil, India, Japan, Russia, Turkey and the USA, are more self-reliant than those on the right, such as Luxembourg, Belgium, the Netherlands and Denmark.
 This self-reliance can be made precise by measuring the ratio of domestic response to foreign response:
-\begin{equation}
+\begin{equation}\label{eqn:self_reliance}
 \phi^{(i)} = \frac{\eta^{*(i)}}{\eta^{\dagger(i)}}
 \end{equation}
 Figure \ref{fig:phi-vs-pop} shows the relationship between $\phi^{(i)}$ and population in 2010 (World Development Indicators, The World Bank).
@@ -675,7 +648,7 @@ Further research might be put into which sectors cause the largest share of thes
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\textwidth]{"images/phi vs population - tweaked".pdf}
-\caption{}
+\caption{Figure showing the positive relationship between economic self-reliance as defined by \cref{eqn:self_reliance} and population. More populous countries tend to be more self-reliant.}
 \label{fig:phi-vs-pop}
 \end{figure}
 
@@ -723,28 +696,27 @@ Along with the sector-to-sector flows given by \cref{eqn:z_dagger_and_star}, thi
 
 This reformulation demonstrates the connection between the model described in this paper and the established world input-output table approach, allowing us to visualise the individual country-sector to country-sector flows (or changes in such flows) for any model scenario, such as that calculated in section \ref{sec:simple_modelling_approaches} in response to a reduction of demand in China for the Vehicles sector by \$1M.
 
-The change to every such flow (both $y_{rs}^{(i,j)}$ and $z_{rs}^{(i)}$ type flows) in the eight most-affected countries is recorded and visualised in figure \ref{fig:chnvehtop6}.
+The change to every such flow (both between-country trade flows and within-country intermediate flows) in the eight most-affected countries is recorded and visualised in figure \ref{fig:chnvehtop6}.
 Node size is proportional to eigenvector centrality and the edge weight is proportional to the change induced in the particular flow be the reduction in final demand.
 This diagram reveals the patterns and shapes of the various economies which would be hard to pick out in the raw flow matrix.
 
-\subsection{Comparison with a world input-output table}
-As discussed in section \ref{sec:litreview}, the modelling approach presented here relaxes the rigidity of the world input-ouput table's assumptions about the patterns of global trade.
+\subsection{Comparison with a multi-region input-output model}
+As discussed in section \ref{sec:litreview}, the modelling approach presented here relaxes the somewhat rigid structure of a MRIO table.
 In so doing, it also reduces the amount of data required to estimate the place in the world of countries which are not covered by WIOD.
-But since the present iteration of the model can be made equivalent to a WIOT (as shown in section \ref{sec:networkapproach}), any of the analyses presented here could equally well be performed using the world input-output table directly.
-It is therefore important to verify that the model in its present, most simple form, behaves similarly to a WIOT before any further development is done.
+But since the present iteration of the model can be made equivalent to a MRIO (as shown in section \ref{sec:networkapproach}), any of the analyses presented here could equally well be performed using the world input-output table directly.
+It is therefore important to verify that the model in its present, most simple form, behaves similarly to a MRIO before any further development is done.
 
-To this end, the results of the experiment of section \ref{sec:simple_modelling_approaches}, reducing demand for Chinese vehicles, is repeated using a WIOT, and the results are compared in figure \ref{fig:chn_vec_model_vs_wiot}.
-
+To this end, the results of the experiment of section \ref{sec:simple_modelling_approaches}, reducing demand for Chinese vehicles, is repeated using a MRIO, and the results are compared in figure \ref{fig:chn_vec_model_vs_wiot}.
 The response to a reduction in demand for Chinese vehicles is summed over sectors in each country.
 The countries are then ranked according to the size of the response.
-The ranks produced by the WIOT are shown on the left-hand side, and those produced by the present model on the right.
+The ranks produced by the MRIO are shown on the left-hand side, and those produced by the present model on the right.
 Visually, the results seem broadly comparable and have a Spearman rank correlation coefficient \parencite{spearman_proof_1904} of 0.96.
-This gives some confidence in concluding that this first, simplest iteration of the model behaves in a similar fashion to the WIOT it seeks to extend.
+This gives some confidence in concluding that this first, simplest iteration of the model behaves in a similar fashion to the MRIO it seeks to generalise and extend.
 
 \begin{figure}[p]
 \centering
 \includegraphics[height=0.8\textheight]{"images/chn_vec_rank_change_wiot_vs_model".pdf}
-\caption{A comparison of the results of the Chinese vehicle experiment performed on a WIOT (on the left) and on the present model (on the right).
+\caption{A comparison of the results of the Chinese vehicle experiment performed on a MRIO (on the left) and on the present model (on the right).
 Vertical position represents the rank of the country in terms of how affected it is by a reduction in demand for Chinese vehicles.\\
 \textsuperscript{*}Taiwan is ranked last in the present model.
 This is because the UN provides no trade data for the territory.
@@ -754,21 +726,23 @@ All Taiwan's import ratios are therefore zero (i.e. Taiwan is modelled as being 
 
 
 \section{Conclusions}\label{sec:conclusions}
-In this paper, a new model of global trade has been presented, combining two distinct modelling approaches for the internal workings of national economies and for international trade.
-The model incorporates information from two extremely extensive data sets, the UN COMTRADE database and the World Input-Output Database, giving it a level of real world economic detail exceeding that of almost all previous work.
+In this paper, we have introduced a new model of global trade, combining two distinct modelling approaches for the internal workings of national economies and for international trade.
+The model incorporates information from two extremely extensive data sets, the UN COMTRADE database and the World Input-Output Database, giving it a good basis in empirical observation.
 
-The model equations are solved iteratively, thus avoiding the limitations and assumptions of the traditional world input-output table approach which are no longer necessary in this age of very fast computing, and lending the model the flexibility to accommodate a wide variety of possible extensions, such as the consideration of non-linear production functions, limited production capacities and non-clearing markets.
-It also offers a rich set of coefficients to examine and manipulate, with the addition of import ratios and import propensities to the traditional approach of national input-output models, which will facilitate its integration with other social science models, such as those that model how countries choose to trade with one another.
+The model equations are solved iteratively, thus avoiding the limitations and assumptions of the traditional multi-region input-output approach, lending the model the flexibility to accommodate a wide variety of possible extensions, such as the consideration of non-linear production functions, limited production capacities and non-clearing markets.
+It also introduces two new sets of coefficients for modellers to work with, which will facilitate its integration with other social science models.
 
-The model allows for the definition and analysis of a powerful new measure of the global economic significance of each sector within a national economy, gauging the degree to which that sector drives economic activity across the world. In initial investigations, China was found to be a considerable outlier in terms of its economic significance, driven by high consumption of its own domestically produced products and services. Following this analysis, a measure of economic self-reliance was introduced, which was was found to vary inversely with population. These results represent preliminary analyses only, with far more scope for detailed investigation of international trade patterns and alternative global economic scenarios now that the model is operational.
+We have also introduced a new measure of the global economic significance of each sector within a national economy, gauging the degree to which that sector drives economic activity across the world.
+In initial investigations, China was found to be a considerable outlier in terms of its economic significance, driven by high consumption of its own domestically produced products and services.
+Following this analysis, we introduced a measure of economic self-reliance, which was was found to vary inversely with population.
+These results represent preliminary analyses only, with far more scope for detailed investigation of international trade patterns and alternative global economic scenarios now that the model is operational.
 
-Finally, a method is presented to transform the structure of the model into that of a traditional world input-output table, allowing for the deployment of the tools and analyses of the network science literature. A very simple example of this approach was presented, with further analyses to follow in future work.
+Finally, we have presented a method for transforming the structure of the model into that of a traditional MRIO table, allowing for both traditional MRIO approaches, and the use of the tools and analyses of the network science literature.
+A very simple example of this approach was presented, with further analyses to follow in future work.
 
-Further work on the model will include the relaxation of the traditional input-output assumptions, beginning with the introduction limits on production capacity, with the goal of creating a fully dynamic version of the model to analyse the change in trade patterns over time. Ultimately, the model will also be combined with further submodels representing migration, international security and the distribution of development aid, to create a fully integrated representation of these global processes.
-
-
-
-
+The next step will be to estimate country models for those (mostly developing) countries not in WIOD to facilitate the study of such human systems as migration, interational security and development aid.
+Further work on the model will include the relaxation of the its input-output assumptions, beginning with the introduction limits on production capacity, with the goal of creating a fully dynamic version of the model to analyse the change in trade patterns over time.
+Upcoming work uses the model to answer specific policy questions such as how to maximise a country's GDP by manipulation of its final demand vector, import ratios and technical coefficients.
 
 
 \section*{Acknowledgements}
@@ -779,5 +753,56 @@ The authors acknowledge the financial support of the UK Engineering and Physical
 
 
 \printbibliography
+
+\appendix
+\section{Appendix}
+Here we outline some additional details of the setup of the model.
+
+\subsection{Modelling the `rest of the world'}\label{sec:RoW}
+The UN trade data records flows to and from many countries (as well as many non-country `trade areas') which are not part of WIOD. If these flows were simply ignored, then countries which trade significantly with these areas would be misrepresented in terms of extent to which they trade with the countries which \textit{are} in the model. To avoid this, the model includes a `rest of the world' entity (RoW) which receives all exports going to countries (`stray' exports) not explicitly modelled, and provides all imports coming from such countries (`stray imports'). The RoW has no technical coefficients and no import ratios.
+
+The RoW is initialised to have a final demand, $f_s$, equal to the total stray exports in each sector across the whole model\footnote{flows from countries not in the model to other countries not in the model are ignored.}. Then, since the RoW has no import ratios, instead of solving \cref{eqn:mmodel} to calculate import demand, it simply sets
+\begin{equation}\label{eqn:RoW_imports}
+\boldsymbol{m} = \boldsymbol{f}
+\end{equation}
+thus importing a fixed amount of each sector, defined by the initial level of stray exports in the data.
+
+The RoW also has a particular way of deriving its total production, $\boldsymbol{x}$. It has no technical coefficients, so cannot solve \cref{eqn:xmodel}. Rather, it simply sets
+\begin{equation}\label{eqn:RoW_total_production}
+\boldsymbol{x} = \boldsymbol{e}
+\end{equation}
+which allows it to produce `for free' (in the sense that there is no intermediate demand) whatever is required of it from other countries. This also has the effect of decoupling the RoW's import side from its export side.
+
+Other than these aspects, the RoW behaves just like a normal country: it has a set of import propensities relating its imports to each other country, and each other country will have an import propensity relating to trade with the RoW.
+
+\subsection{Services trade data}
+Data on trade in goods is based on the very detailed records kept by border agencies for gathering the appropriate taxes.
+For this reason, the goods trade data can be considered to be of high quality.
+Since the supply of services is harder to track, the data on trade in service goods\footnote{taken from http://unstats.un.org/unsd/servicetrade/default.aspx} is considerably coarser.
+Specifically, many countries report only the total quantity of services imported and exported, not the origin and destination of any particular bilateral trade flow.
+In order to estimate the bilateral flows required by \cref{eqn:importpropensities} for the calculation of import propensities, these flow totals must first be divided between trade partners\footnote{Where data on a particular flow is reported from both the importer and the exporter, the data from the importer is given preference.
+Data from the exporter is only used where the importer reports no data.}.
+
+This is done using a method of iterative proportional fitting introduced by \textcite{deming_least_1940}.
+The basic algorithm for balancing $n$ totals into a matrix of $n \times n$ bilateral flows works as follows:
+\begin{enumerate}
+\itemsep -0.2em 
+\item Initialise an $n \times n$ matrix with 1s (or any other arbitrary starting value)
+\item Multiply each row vector such that the sum of the elements is equal to the required total outflow \label{item:rows}
+\item Multiply each column vector in an identical fashion such that they sum to the required total inflow \label{item:cols}
+\item Iterate steps \ref{item:rows} and \ref{item:cols} until the system converges (in the sense of the sum of the squared difference between each element in the matrix of the current iteration and that of the previous iteration being less than some $\epsilon > 0$)
+\end{enumerate}
+The procedure is followed $S$ times, producing one flow matrix per sector, with two changes specific to this situation.
+\subsubsection{Importing own exports}
+The commodities trade data report no flows originating from and arriving to the same country.
+The import propensities $p_s^{(i,i)}$ are therefore set to zero.
+To ensure that the outcome of the fitting procedure adheres to this, the initial matrix is modified to have a zero along its diagonal.
+Since the fitting consists only of multiplications, any zeros in the initial matrix will remain zero in the balanced matrix.
+
+\subsubsection{The rest of the world}
+Since total imports and total exports will inevitably not be equal per sector, a `rest of world' (RoW) is added to absorb any excess.
+If exports exceed imports, the RoW is added as an additional column (importer) and vice versa.
+The initial matrix is thus either wide or tall, depending on the relevant trade totals.
+
 
 \end{document} 
