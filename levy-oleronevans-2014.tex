@@ -19,6 +19,7 @@
 \usepackage{attrib}
 \usepackage{enumerate}
 %\bibliographystyle{elsarticle-harv}
+\usepackage{cleveref}
 %\nocite{*}
 % % Diagramming
 \usepackage{tikz}
@@ -68,7 +69,7 @@ Section \ref{sec:system} gives a description of the present system and outlines 
 The algorithm used to calculate the output of the model is described in section \ref{sec:algorithm} and some preliminary results are given in section \ref{sec:analysis}.
 Conclusions and potential directions for future research are presented in section \ref{sec:conclusions}.
 
-\section{Existing Global Economic Models} \label{sec:litreview}
+\section{Existing global economic models} \label{sec:litreview}
 In the mid-1970s, the creator of input-output economics, Wassily Leontief, used the acceptance speech of his Nobel prize in Economics to announce a very ambitious project to model the global economy:
 
 \begin{quotation}
@@ -95,7 +96,7 @@ It also provides modellers with a richer set of coefficients than the standard t
 Additionally, as mentioned, this reduced set of coefficients will facilitate the addition of countries vital to the study of these systems, but which do not publish data on economics structure.
 The mathematical estimation of the coefficients for these countries is the subject of upcoming work.
 
-\section{The System Description} \label{sec:system}
+\section{Description of the model} \label{sec:system}
 Here we outline the new global model.
 In this presentation the model has $C$ countries, the economies of which are divided into $S$ productive sectors\footnote{Although each sector produces many distinct products, for the sake of simplicity, these products are considered to be perfect substitutes, allowing the terms `sector' and `product' to be used interchangeably throughout this paper.}.
 All product flows are given by value, measured in millions of (current price) US dollars\footnote{This allows us to use the terms `quantity' and `value' interchangeably.}.
@@ -119,22 +120,25 @@ Input-output is, at its heart, an accounting methodology.
 The products produced by and imported into a given country in a given year are either: sold as inputs to other sectors (`intermediate supply'); supplied to the `final demand' of consumers and the government; invested; or exported.
 The total amount imported and produced must equal the amount used, consumed, invested and exported for each sector.
 
-By simple summation, total production of sector $s$ in country $i$ can be defined as the sum of all intermediate supply, plus supply to final demand, investment and export:
+By simple summation, country $i$'s total production of sector $s$, $x_s^{(i)}$, can be defined as the sum of all intermediate supply, plus supply to final demand, investment and export:
+
 \begin{equation}\label{eqn:x}
 x_s^{(i)}=\sum\limits_{t}z_{s,t}^{\dagger(i)} + f_s^{\dagger(i)} + n_s^{\dagger(i)} + e_s^{(i)}
 \end{equation}
 where $z_{s,t}^{\dagger(i)}$ is the intermediate supply from domestic sector $s$ to sector $t$ in country $i$, $f_s^{\dagger(i)}$ is final demand for domestic sector $s$, $n_s^{\dagger(i)}$ is investment and $e_s^{(i)}$ are exports.
-The total import of sector $s$ into country $i$ is the sum of all intermediate supply of imported products, plus demand for and investment of imported products. 
-It should be noted that, in this iteration of the model, imported products may not be directly exported, though they may naturally supply intermediate demand of sectors whose output is itself exported.
-In other words, \textit{re-exports} are set to zero:
+
+Similarly, country $i$'s total import of sector $s$, $m_s^{(i)}$, is the sum of all intermediate supply of imported products, plus demand for and investment of imported products\footnote{
+Note that, by convention, imported products may not be directly exported.
+This is a convention we retain throughout.
+}:
+
 \begin{equation}\label{eqn:m}
 m_s^{(i)}=\sum\limits_{t}z_{s,t}^{*(i)} + f_s^{*(i)} + n_s^{*(i)}
 \end{equation}
-
-For a particular sector, the phrase `total demand' is used to refer to the sum of final demand, investments and exports, including domestically produced and imported products.
-
 An input-output table, $\boldsymbol{T}^{(i)}$, as described by \textcite{miller_input-output_1985}, is a particular arrangement of these quantities, which provides a clear and compact summary of the structure of a national economy.
-Neglecting the $(i)$ superscript for clarity, the input-output table (IOT) is defined as follows:
+Neglecting the $(i)$ superscript for clarity\footnote{
+For the remainder of this paper, the country superscript will be excluded whenever its presence is clear from the context.}
+, the national input-output table (NIOT) is defined as follows:
 
 \begin{equation}\label{eqn:T}
 \begin{array}{rc}
@@ -160,19 +164,16 @@ s \\
 z^{\dag}_{1,1} & \mathellipsis & z^{\dag}_{1,s} & f^\dag_{1} & n^\dag_{1} & e_{1} & x_1 \\
 \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots \\
 z^{\dag}_{s,1} & \mathellipsis & z^{\dag}_{s,s} & f^\dag_{s} & n^\dag_{s} & e_{s} & x_{s} \\
-z^*_{1,1} & \mathellipsis & z^*_{1,s} & f^*_{1} & n^*_{1} & 0 & i_1 \\
+z^*_{1,1} & \mathellipsis & z^*_{1,s} & f^*_{1} & n^*_{1} & 0 & m_1 \\
 \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-z^*_{s,1} & \mathellipsis & z^*_{s,s} & f^*_{s} & n^*_{s} & 0 & i_{s} \vspace*{2mm} \\
+z^*_{s,1} & \mathellipsis & z^*_{s,s} & f^*_{s} & n^*_{s} & 0 & m_{s} \vspace*{2mm} \\
 %v_{1} & \mathellipsis & v_{s} & 0 & 0 & 0 & G
 \end{array} \right)
 \end{array}
 \end{equation}
-Table \ref{tbl:cvars} shows a summary of the quantities used in \eqref{eqn:T}.
-
 It will often be convenient to gather those quantities having a single subscript into vectors, and those with two subscripts into matrices. 
-
 We can then characterise a country's economy through the $S$-vectors $\boldsymbol{f}^{(i)}$, $\boldsymbol{n}^{(i)}$ and $\boldsymbol{e}^{(i)}$, and by the $S\times S$ matrices $\boldsymbol{Z}^{\dagger(i)}$ and $\boldsymbol{Z}^{*(i)}$.
-In matrix form, $\boldsymbol{T}$ may be written:
+In matrix form, the input-output table may be written:
 
 \begin{equation}\label{eqn:Tvectorised}
 \begin{array}{rcc}
@@ -185,56 +186,27 @@ In matrix form, $\boldsymbol{T}$ may be written:
 \right)
 \end{array}
 \end{equation}
-
-\subsection{A Single Country Model}\label{sec:countries}
-In the standard input-output model, each country is represented by an input-output table as described in section \ref{sec:iots} above.
-
-This model follows this approach to a large extent, and many of the coefficients used to describe a country's economy are taken directly from WIOD.
-Table \ref{tbl:cvars} shows a summary of which coefficients are used, unchanged in our country model.
-The coefficients relating to final demand and investment are generated by summing across the WIOD columns listed in the table.
-
-\begin{table}
-\begin{center}
-\begin{tabular}{cp{3.7cm}p{6cm}}
-\toprule
-	            & description  & source in WIOD \\ \midrule
-	$f_s^{(i)}$ & final demand on sector $s$  & 
-		\parbox[t]{6cm}{sum of three final consumption columns: households, government and non-profit organisations} \\
-	$n_s^{(i)}$ & investment of sector $s$    & 
-		\parbox[t]{6cm}{sum of two investment columns labelled\\``gross fixed capital formation'' and \\
-						``changes in inventories and valuables''}\\
-	$e_s^{(i)}$ & exports of sector $s$       & column labelled ``Exports'' \\
-	$z_{s,t}^{\dagger(i)}$ & intermediate demand on 
-							sector $s$ by sector $t$ \mbox{(domestic)}& the top-left 35$\times$35 block, labelled ``c1--c35'' \\
-	$z_{s,t}^{*(i)}$ & intermediate demand on 
-							sector $s$ by sector $t$ \mbox{(imported)}& the bottom-left 35$\times$35 block
-\\\bottomrule
-\end{tabular}
-\caption{Coefficients which define the economy of country $i$ and their source in WIOD national input-output tables. Note that domestic coefficients are labelled with a dagger superscript ($\dagger$) and import coefficients with an asterisk (*).}\label{tbl:cvars}
-\end{center}
-\end{table}
-
-From the elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, each sector has a complete `recipe' for making its output, in terms of the quantities of each product used as input, both domestic and imported. 
-
-From the elements of $\boldsymbol{T}$ two sets of coefficients are now defined which will completely specify the behaviour of a particular country in terms of the internal workings of its economy. For the remainder of this section, the country superscript will be excluded whenever its presence is clear from the context.
+The elements of $\boldsymbol{Z}^\dagger$ and $\boldsymbol{Z}^*$, provide each sector with a complete `recipe' for making its output, describing the quantities of each product needed as input, both domestic and imported, to produce total production, $\boldsymbol{x}$. 
+We are now in a position to introduce our first coefficient set.
 
 \subsubsection*{Technical Coefficients}\label{sec:techcoeffs}
-By dividing each intermediate flow by the total output of the sector using the intermediate, we can arrive at a set of \textit{technical coefficients} which define the input of one sector required per unit output of another.
+By dividing each intermediate flow, $z$, by the total output, $x$, of the sector using the intermediate, we can arrive at a set of \textit{technical coefficients}, $a$, which define the input of one sector required per unit output of another.
 The amount of domestically produced product $r$ required by sector $s$ to produce a single unit of output is thus:
 \begin{equation}\label{eq:adagger}
 a_{r,s}^\dagger = \frac{z^\dagger_{r,s}}{x_s}
 \end{equation}
-and
+and the equivalent measure for imported $r$ is:
 \begin{equation}\label{eq:astar}
 a_{r,s}^* = \frac{z^*_{r,s}}{x_s}
 \end{equation}
-for the equivalent measure for imported $r$. There are therefore $2S \times S$ technical coefficients for each country\footnote{Recall that single year is assumed throughout this treatment.
+There are therefore $2S \times S$ technical coefficients for each country\footnote{Note that a single year is assumed throughout this treatment.
 In time series analyses there will be $2S \times S$ technical coefficients for every country in every year.}.
-These technical coefficients allow the intermediate demand to be calculated for any given vector of final, investment and export demands. The total demand (intermediate plus final) for domestically produced sector $s$ is:
+These technical coefficients allow the intermediate demand to be calculated for any given set of final demands, investments and exports. The total domestic production of sector $s$, $x_s$, is given by:
 $$
 x_s = \sum_r{a^\dagger_{s,r}x_r} + f^\dagger_s + n^\dagger_s + e_s 
 $$
-or, in matrix representation:
+or, in matrix representation, stacking the equations for each sector vertically:
+
 \begin{align}
 \boldsymbol{x}& = 
 \boldsymbol{A^\dagger}\boldsymbol{x}
@@ -242,7 +214,8 @@ or, in matrix representation:
 \boldsymbol{f^\dagger} + \boldsymbol{n^\dagger} + \boldsymbol{e} 
 \label{eqn:xIRIO}
 \end{align}
-Having calculated total domestic production, we can then calculate the import required to satisfy intermediate and final demands as:
+Having calculated total domestic production, we can then calculate the import, $\boldsymbol{m}$, required to satisfy intermediate and final demands as:
+
 \begin{equation}\label{eqn:mIRIO}
 \boldsymbol{m}
 =
@@ -250,116 +223,162 @@ Having calculated total domestic production, we can then calculate the import re
 +
 \boldsymbol{f^*} + \boldsymbol{n^*} 
 \end{equation}
-Thus the domestic total production and the imports may be completely determined from the total demand and the technical coefficients.
+Thus the domestic total production, the intermediate demand, and the imports may be completely determined from the final demand, the investments, the exports and the technical coefficients.
 
-\subsubsection*{Import Ratios}\label{sec:importratios}
+\subsection{A single country model}\label{sec:countries}
+Our country model follows the the standard input-output model described in section \ref{sec:iots} to a large extent.
+Each country is represented by an input-output table and many of the coefficients used to describe a country's economy are taken directly from WIOD.
+Table \ref{tbl:cvars} shows a summary of which coefficients are used, unchanged, in our country model \footnote{The coefficients relating to final demand and investment are generated by summing across the WIOD columns listed in the table.}.
+
+Notice that imports, $m$, are not present in this table.
+To define $m$ we now introduce the first of two new sets of coefficients. 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{cp{3.7cm}p{6.5cm}}
+\toprule
+	            & description  & source in WIOD \\ \midrule
+	$f_s^{(i)}$ & final demand on sector $s$  & sum of three final consumption columns:
+                                                households, government and non-profit organisations \\
+	$n_s^{(i)}$ & investment of sector $s$ & sum of two investment columns labelled
+                                             ``gross fixed capital formation'' and
+                                             ``changes in inventories and valuables'' \\
+	$e_s^{(i)}$ & exports of sector $s$ & column labelled ``Exports'' \\
+	$z_{s,t}^{\dagger(i)}$ & intermediate demand on 
+							sector $s$ by sector $t$ \mbox{(domestic)}& top-left 35$\times$35 block, labelled ``c1--c35'' \\
+	$z_{s,t}^{*(i)}$ & intermediate demand on 
+							sector $s$ by sector $t$ \mbox{(imported)}& bottom-left 35$\times$35 block
+\\\bottomrule
+\end{tabular}
+\caption{Coefficients which define the economy of country $i$ and their source in WIOD national input-output tables. Note that domestic coefficients are labelled with a dagger superscript ($\dagger$) and import coefficients with an asterisk (*).}\label{tbl:cvars}
+\end{center}
+\end{table}
+
+\subsubsection*{Import ratios}\label{sec:importratios}
 
 The above description treats domestic and foreign goods as complements of one another, rather than as substitutes.
 For example, each aeroplane produced would require some fixed quantity of domestic steel, and a (different) fixed quantity of imported steel.
 Inspired by the description given by \textcite{duchin_international_2004} of Leontief's proposed global model, the present model reverses this assumption and treats foreign and domestic products as perfect complements.
-Some justification for this assumption is given at the end of this section.
+This assumption is important for our goal of coefficient parsimony as we shall see.
 
 Leontief assumed that engineers in an importing country do not care where a product originated; they will simply know that domestic production does not meet their demand, and instead demand a perfectly-substitutable imported product.
 In a similar spirit, when a product in the present model arrives at the shores of an importing country, it enters a theoretical `national warehouse' along with domestically produced products, at which point the two become indistinguishable\footnote{Note that this concept is referred to in \textcite{miller_input-output_1985} as \textit{import similarity}}.
-The only thing specified by the model is the fraction of all products used domestically which are supplied by imports. This fraction is assumed to remain fixed per country and per sector, and is called the \textit{import ratio}. It is calculated directly from the country's NIOT as:
+
+We assume that the proportion of domestic to imported goods in this warehouse remains constant.
+This fraction remains fixed per country and per sector, and is called the \textit{import ratio}. It is calculated directly from the country's NIOT as:
 \begin{equation}\label{eqn:importratio}
-d_s^{(i)} = \frac{m_s^{(i)}}{(x_s^{(i)} - e_s^{(i)} ) + m_s^{(i)}}
+d_s = \frac{m_s}{(x_s - e_s ) + m_s}
 \end{equation}
-where $x_s^{(i)}$, $e_s^{(i)}$ and $m_s^{(i)}$ are the total production, export and import of sector $s$, calculated via equations \eqref{eqn:x} and \eqref{eqn:m} respectively.
-The term $(x_s^{(i)} - e_s^{(i)} )$ represents the products used domestically.
+where $x_s$, $e_s$ and $m_s$ are the total production, export and import of sector $s$, calculated via \cref{eqn:x} and \cref{eqn:m} respectively.
+The term $(x_s - e_s )$ represents the products used domestically.
 It includes all intermediate demand, including that required to fulfil export requirements, as well as direct flows to final demand and investment, but excludes direct flows to export.
-This is because imports may not directly supply export demand as per equation \eqref{eqn:Tvectorised}.
+This is because imports may not directly supply export demand as per \cref{eqn:Tvectorised}.
 
-The assumption of fixed import ratios significantly simplifies the model, halving the number of technical coefficients that must be specified for a given country, therefore helping to achieve the goal of model parsimony.
-A complete set of inter-sector flows, $\boldsymbol{Z}^{\dagger}$ and $\boldsymbol{Z}^{*}$, relating to both domestically produced and imported products, may be determined from a single set of combined technical coefficients, $\boldsymbol{A}$ (equal to $\boldsymbol{A}^{\dagger} + \boldsymbol{A}^{*}$), along with an $S$-vector, $\boldsymbol{d}$, of import ratios.
-Additionally, as mentioned above, this also represents a more plausible assumption of how sectors split their purchasing between domestic and imported.
+The assumption of fixed import ratios halvles the number of technical coefficients that must be specified for a given country, and therefore helps to achieve our goal of model parsimony.
 
-If the total intermediate flow across both domestic \textit{and} imported products is defined as $\boldsymbol{Z} = \boldsymbol{Z}^{\dagger} + \boldsymbol{Z}^{*}$ then, following equation \eqref{eq:adagger}, the `combined' technical coefficients can be calculated as:
-\begin{equation}\label{eqn:a_combined}
-a_{r,s} = \frac{z_{r,s}}{x_s}
-\end{equation}
+Since we no longer need to track intermediate flows separately for domestic and imported goods, we can create a single matrix of intermediate flows, $\boldsymbol{Z}$, as follows:
 
-Both $\boldsymbol{A}$ and $\boldsymbol{d}$ are calculated directly from data and are fixed coefficients of the country model. This model can be used to calculate total demand $\boldsymbol{x}$ from any given set of total demands as per equation \eqref{eqn:xIRIO}:
 \begin{equation}
-\boldsymbol{x} 
-= 
-(\boldsymbol{I} - \boldsymbol{\hat{d}})
-(
-\boldsymbol{Ax} + 
-\boldsymbol{f} + \boldsymbol{n}
-)
-+ \boldsymbol{e}
-\label{eqn:xmodel}
+    \boldsymbol{Z} = \boldsymbol{Z}^{\dagger} + \boldsymbol{Z}^{*}
 \end{equation}
-where $\boldsymbol{f} = \boldsymbol{f}^{\dagger} + \boldsymbol{f}^{*}$ and $\boldsymbol{n} = \boldsymbol{n}^{\dagger} + \boldsymbol{n}^{*}$.
- 
-Then for any given total production, $\boldsymbol{x}$, every individual inter-sector flow can be recovered as follows:
-\begin{align}
-\boldsymbol{Z}& = \boldsymbol{A}\boldsymbol{\hat{x}}\nonumber\\
-\boldsymbol{Z^*}& = \boldsymbol{\hat{d}}\boldsymbol{Z}\\
-\boldsymbol{Z^\dagger}& = (\boldsymbol{I} - \boldsymbol{\hat{d}})
-	\boldsymbol{Z}\label{eqn:zstar}
-\end{align}
-Finally, using the definition of the import ratios from equation \eqref{eqn:importratio}, total domestic production $\boldsymbol{x}$ can be used to define imports:
+Now, similarly to \cref{eq:adagger}, the `combined' technical coefficients can be calculated by dividing each element of $\boldsymbol{Z}$ by an appropriate element of $\boldsymbol{x}$.
+Following \textcite{miller_input-output_1985} in defining $\boldsymbol{\hat{x}}$ as a matrix whose diagonal elements are the elements of $\boldsymbol{x}$, we can calculate the combined technical coefficients as:
+
+\begin{equation}\label{eqn:a_combined}
+    \boldsymbol{A} = \boldsymbol{Z} \boldsymbol{\hat{x}}
+\end{equation}
+As we have seen, both $\boldsymbol{A}$ and $\boldsymbol{d}$ are calculated directly from data and are then fixed as coefficients of each country model. Once they are calculated, we can use them to calculate, in a similar style to \cref{eqn:xIRIO}, total production $\boldsymbol{x}$ for \textit{any} set of final demands, $\boldsymbol{f}$, investments, $\boldsymbol{n}$, and exports, $\boldsymbol{e}$: 
+
+\begin{equation}
+    \boldsymbol{x} 
+    = 
+    (\boldsymbol{I} - \boldsymbol{\hat{d}})
+    (
+    \boldsymbol{Ax} + 
+    \boldsymbol{f} + \boldsymbol{n}
+    )
+    + \boldsymbol{e}
+    \label{eqn:xmodel}
+\end{equation}
+where $\boldsymbol{\hat{d}}$ is an $S \times S$ matrix whose diagonal elements are the import ratios, $d_s$, and $\boldsymbol{I}$ is the appropriately sized identity matrix.
+%where
+%$\boldsymbol{f} = \boldsymbol{f}^{\dagger} + \boldsymbol{f}^{*}$ and $\boldsymbol{n} = \boldsymbol{n}^{\dagger} + \boldsymbol{n}^{*}$.
+Once $\boldsymbol{x}$ is known, we can calculate imports, $\boldsymbol{m}$, from \cref{eqn:importratio} as:
 \begin{equation}
 \boldsymbol{m} = 
 (\boldsymbol{I} - 
 \boldsymbol{\hat{d}})^{-1} 
 \boldsymbol{\hat{d}}\boldsymbol{x}\label{eqn:mmodel}
 \end{equation}
-where $\boldsymbol{\hat{d}}$ is an $S \times S$ matrix whose diagonal elements are the import ratios, $d_s$, and $\boldsymbol{I}$ is the appropriately sized identity matrix.
 
-A further benefit for coefficient parsimony of the import ratios assumption is that final demand and investment have only $S$ elements to be specified, rather than the $2S$ elements shown in equation \eqref{eqn:T}.
+Finally, every individual inter-sector flow can be recovered using:
+\begin{equation}\label{eqn:z_dagger_and_star}
+    \begin{aligned}
+        \boldsymbol{Z}& = \boldsymbol{A}\boldsymbol{\hat{x}} \\
+        \boldsymbol{Z^*}& = \boldsymbol{\hat{d}}\boldsymbol{Z} \\
+        \boldsymbol{Z^\dagger}& = (\boldsymbol{I} - \boldsymbol{\hat{d}}) \boldsymbol{Z}
+    \end{aligned}
+\end{equation}
+
+A further parsimony benefit of the import ratio assumption is that final demand and investment have only $S$ elements to be specified, rather than the $2S$ elements shown in \cref{eqn:T}.
 This implies that consumers have no preference between domestic and imported products.
-Rather it is up to the sectors to decide how best to meet the single demand for their product.
+Rather, the import ratios will set the relationship between demand for domestic goods and demand for imported goods in an identical way to \cref{eqn:z_dagger_and_star}.
 
-\subsection{An International Trade Model}\label{sec:trade}
-The concept of the NIOT is often expanded to an international context using inter-regional input-output modelling (IRIO). In standard IRIO, each sector in each country is explicit about which countries it gets its imports from. 
-This requires each sector to have $S \times C$ technical coefficients, an onerous data requirement and, as already mentioned, a challenge to the credibility of the assumptions required. 
+\subsection{An international trade model}\label{sec:trade}
+The concept of the NIOT is often expanded to an international context using multi-regional input-output modelling (MRIO). In standard MRIO, each sector in each country is explicit about which countries it gets its imports from. 
+This requires each sector to have $S \times C$ technical coefficients, an onerous data requirement and, as we have seen, a challenge to the credibility of the assumptions required. 
 
-The WIOD present all these technical coefficients in the world input-output tables (WIOTs) which they publish, but the present model instead takes a second assumption from Leontief via \textcite{duchin_international_2004} which he refers to as ``export shares''.
+WIOD presents all these technical coefficients in what it calls world input-output tables (WIOTs), huge MRIO tables for the whole world.
+But the present model instead takes a second assumption from Leontief via \textcite{duchin_international_2004} which Leontief refered to using the term ``export shares''.
+It is this assumption which introduces our second new set of coefficients.
 
-\subsubsection*{Import Propensities}
-The assumption is that countries get each of their imported products from their international trading partners in fixed proportions.
+\subsubsection*{Import propensities}
+Once import demand is fixed by the country model outlined in \cref{sec:countries} we make the assumption that countries get each of their imported products from their international trading partners in fixed proportions.
 Thus, country $j$ will always get the same proportion of its total import demand for product $s$ from country $i$.
 We refer to these fixed proportions as \textit{import propensities} as they describe a country's propensity to import a given product from each other country.
-The propensity for country $j$ to import product $s$ from country $i$ is given by:
+These propensities are calculated directly from empirical observation, using trade flow data provide by the UN in their COMTRADE database\footnote{COMTRADE covers only commodities. An explanation of how import propensities for serivces sectors are derived is given in the appendix.}.
+This database provides bilateral flows of products at a very fine grain of detail.
+Using a mapping provided to us by the WIOD team, we were able to map each of these product flows to a sector and, by summation, create empirically observed total sector flows.
+By denoting the flow of sector $s$ from country $i$ to country $j$ as $y_s^{(i,j)}$ we can calculate the associated import propensity directly from data, using:
+
 \begin{equation}\label{eqn:importpropensities}
 p^{(i,j)}_s = \frac{y^{(i,j)}_s}{\sum_k{y^{(k,j)}_s}}
 \end{equation}
-where $y^{(i,j)}_s$ is the trade flow of product $s$ from country $i$ to country $j$. The $y_s$ are taken directly from the UN COMTRADE database, with a mapping between the UN's 6-figure product code and the NIOT sector aggregation\footnote{This mapping was provided to us by the team behind WIOD. This was of invaluable help in creating the present model.}.
+Given the import requirements of each country from \cref{eqn:mmodel} and the import propensities from \cref{eqn:importpropensities}, the export demand on sector $s$ in country $i$ due to demand from country $j$ can be calculated as:
 
-Given the import requirements of each country from equation \eqref{eqn:mmodel} and the import propensities from \eqref{eqn:importpropensities}, the export demand on sector $s$ in country $i$ due to demand from country $j$ can be calculated as:
 \begin{equation*}
 e_s^{(i,j)} = p_s^{(i,j)}m_s^{(j)}
 \end{equation*}
 and total export demand in country $i$ is therefore:
+
 \begin{equation}\label{eqn:emodel}
 e_s^{(i)} = \sum_k{p_s^{(i,k)}m_s^{(k)}}
 \end{equation}
-\noindent Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions, $x_s^{(i)}$, of all sectors in all countries; the intermediate input-output flows, $z_{s,t}^{\dagger(i)}$ and $z_{s,t}^{*(i)}$; imports, $m_s^{(i)}$; exports, $e_s^{(i)}$; and all trade flows, $y_s^{(i,j)}$, given a set of technical coefficients, $a_{r,s}^{(i)}$, import ratios, $d_s^{(i)}$, trade propensities, $p_s^{(i,j)}$, and final demands\footnote{In the present version of the model, investments, $n_s^{(i)}$, are set to zero. 
-Data on investments is provided by WIOD but it is not used in this version.}, $f_s^{(i)}$. Folowing a given set of changes to any of the latter four coefficients, all of the former six categories of flows can be found.
+Equations \eqref{eqn:importratio}--\eqref{eqn:emodel} thus describe a system which defines the total productions of all sectors in all countries, the intermediate input-output flows, imports and exports, given a set of technical coefficients, import ratios, import propensities, and final demands\footnote{In the present version of the model, investments, $n_s$, are set to zero. 
+Data on investments is provided by WIOD but it is not used in this version.}, all of which can be derived directly from empirically observed data.
+Following a given set of changes to any of these latter four sets of coefficients, all of the former six categories of flow can be found.
 
 \subsection{Setting model coefficients from data}
-As outlined above, the model takes four groups of coefficients and produces a complete set of flows within countries (input-output flows) and a complete set of trade flows (imports and exports) between countries. These four groups of coefficients are either calculated from the NIOTs provided by WIOD or from commodity and services trade data provided by the UN.
-To recap, the four groups of coefficients are:
+As outlined above, the model takes four groups of coefficients and produces a complete set of flows within countries (input--output flows) and a complete set of trade flows (imports and exports) between countries.
+These four groups of coefficients are either calculated from the NIOTs provided by WIOD or from commodity and services trade data provided by the UN.
+Here, we summarise the four groups of coefficients and the way in which they are set from data.
 \begin{enumerate}
-\item Final demand, $f_s^{(i)}$: the quantity of a product consumed by the public and the government of a particular country. These are taken directly from the NIOTs using the columns described in table \ref{tbl:cvars}.
-\item Technical coefficients, $a_{r,s}^{(i)}$: the quantity of product $r$ required in country $i$ to make a single unit of product $s$. Calculated from the NIOTs using equation \eqref{eqn:a_combined}. 
-\item Import ratios, $d_s^{(i)}$: the proportion of country $i$'s total demand for product $s$ which is supplied by imports. Calculated from the NIOTs using equation \eqref{eqn:importratio}.
-\item Import propensities, $p_s^{(i,j)}$: the proportion of country $j$'s total of import of product $s$ which comes from country $i$. Calculated from the UN trade data using equation \eqref{eqn:importpropensities}.
+\item Final demand, $f_s$: the quantity of a product consumed by the public and the government of a particular country. These are taken directly from the NIOTs using the columns described in table \ref{tbl:cvars}.
+\item Technical coefficients, $a_{r,s}$: the quantity of product $r$ required in country $i$ to make a single unit of product $s$. Calculated from the NIOTs using \cref{eqn:a_combined}. 
+\item Import ratios, $d_s$: the proportion of country $i$'s total demand for product $s$ which is supplied by imports. Calculated from the NIOTs using \cref{eqn:importratio}.
+\item Import propensities, $p_s^{(i,j)}$: the proportion of country $j$'s total of import of product $s$ which comes from country $i$. Calculated from the UN trade data using \cref{eqn:importpropensities}.
 \end{enumerate}
 
 \subsection{Modelling the `rest of the world'}\label{sec:RoW}
 The UN trade data records flows to and from many countries (as well as many non-country `trade areas') which are not part of WIOD. If these flows were simply ignored, then countries which trade significantly with these areas would be misrepresented in terms of extent to which they trade with the countries which \textit{are} in the model. To avoid this, the model includes a `rest of the world' entity (RoW) which receives all exports going to countries (`stray' exports) not explicitly modelled, and provides all imports coming from such countries (`stray imports'). The RoW has no technical coefficients and no import ratios.
 
-The RoW is initialised to have a final demand, $f_s$, equal to the total stray exports in each sector across the whole model\footnote{flows from countries not in the model to other countries not in the model are ignored.}. Then, since the RoW has no import ratios, instead of solving equation \eqref{eqn:mmodel} to calculate import demand, it simply sets
+The RoW is initialised to have a final demand, $f_s$, equal to the total stray exports in each sector across the whole model\footnote{flows from countries not in the model to other countries not in the model are ignored.}. Then, since the RoW has no import ratios, instead of solving \cref{eqn:mmodel} to calculate import demand, it simply sets
 \begin{equation}\label{eqn:RoW_imports}
 \boldsymbol{m} = \boldsymbol{f}
 \end{equation}
 thus importing a fixed amount of each sector, defined by the initial level of stray exports in the data.
 
-The RoW also has a particular way of deriving its total production, $\boldsymbol{x}$. It has no technical coefficients, so cannot solve equation \eqref{eqn:xmodel}. Rather, it simply sets
+The RoW also has a particular way of deriving its total production, $\boldsymbol{x}$. It has no technical coefficients, so cannot solve \cref{eqn:xmodel}. Rather, it simply sets
 \begin{equation}\label{eqn:RoW_total_production}
 \boldsymbol{x} = \boldsymbol{e}
 \end{equation}
@@ -372,7 +391,7 @@ Data on trade in goods is based on the very detailed records kept by border agen
 For this reason, the goods trade data can be considered to be of high quality.
 Since the supply of services is harder to track, the data on trade in service goods\footnote{taken from http://unstats.un.org/unsd/servicetrade/default.aspx} is considerably coarser.
 Specifically, many countries report only the total quantity of services imported and exported, not the origin and destination of any particular bilateral trade flow.
-In order to estimate the bilateral flows required by \eqref{eqn:importpropensities} for the calculation of import propensities, these flow totals must first be divided between trade partners\footnote{Where data on a particular flow is reported from both the importer and the exporter, the data from the importer is given preference.
+In order to estimate the bilateral flows required by \cref{eqn:importpropensities} for the calculation of import propensities, these flow totals must first be divided between trade partners\footnote{Where data on a particular flow is reported from both the importer and the exporter, the data from the importer is given preference.
 Data from the exporter is only used where the importer reports no data.}.
 
 This is done using a method of iterative proportional fitting introduced by \textcite{deming_least_1940}.
@@ -497,16 +516,16 @@ Figure \ref{fig:algorithm} shows a schematic version of the algorithm for calcul
 All export demands are set to 0.
 
 \subsubsection*{Country-level model}
-Inside each country, total demand is calculated using the export demands (which were initially set to zero), final demands, technical coefficients and import ratios, as per equation \eqref{eqn:xmodel}.
+Inside each country, total demand is calculated using the export demands (which were initially set to zero), final demands, technical coefficients and import ratios, as per \cref{eqn:xmodel}.
 This step maintains the standard input-output matrix inversion.
-From total demand, import demand can be calculated via the import ratios as in equation \eqref{eqn:mmodel}.
+From total demand, import demand can be calculated via the import ratios as in \cref{eqn:mmodel}.
 
 \subsubsection*{Iteration condition}
 At this point a `stop condition' is checked: does the total level of global import demand match total exports in each sector, to within some small value,  $\epsilon > 0$\footnote{More specifically, as shown in Figure \ref{fig:algorithm}, we verify that the length of the vector of differences between the global sum of all imports and the global sum of all exports for each sector does not exceed $\epsilon$. This approach ensures that global export and import totals must balance for all sectors simultaneously.}?
 In the first run through the iteration, this stop condition will certainly fail, because exports have just been set to zero.
 
 \subsubsection*{International trade model}
-The import demands calculated in the country-level models can be divided up into export demands using the import propensities using to equation \eqref{eqn:emodel}.
+The import demands calculated in the country-level models can be divided up into export demands using the import propensities using to \cref{eqn:emodel}.
 These new export demands replace the export demands from the previous iteration (which were all zero the first time round).
 With a new set of export demands calculated the algorithm returns to the country-level model.
 
@@ -537,7 +556,7 @@ The simplest way to define `response' is as the change of total output of all se
 \begin{equation}
 \Delta_{s}^{(i)} x_{r}^{(j)} \equiv (x_{r}^{\prime(j)} - x_r^{(j)})
 \end{equation}
-where $x_{r}^{\prime(j)}$ is the total output of sector $r$ in country $j$ after the change in equation \eqref{eqn:reduce_fd_by_one} has taken place and the model has been recalculated according to Figure \ref{fig:algorithm}.
+where $x_{r}^{\prime(j)}$ is the total output of sector $r$ in country $j$ after the change in \cref{eqn:reduce_fd_by_one} has taken place and the model has been recalculated according to Figure \ref{fig:algorithm}.
 $\Delta_{s}^{(i)} x_{r}^{(j)}$ is thus the change in output of sector $r$ in country $j$ induced by the change in final demand for sector $s$ in country $i$.
 
 The total response across all countries and all sectors induced by sector $s$ in country $i$ is:
@@ -674,7 +693,7 @@ This additional assumption allows us to specify a complete system of intermediat
 \begin{equation}\label{eqn:y_rsij}
 y_{rs}^{(i,j)} = p_{r}^{(i,j)} d_{r}^{(j)} a_{rs}^{(j)} x_{s}^{(j)}
 \end{equation}
-Equation \eqref{eqn:y_rsij} can be understood as follows:
+\Cref{eqn:y_rsij} can be understood as follows:
 sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s product to produce its total output;
 a fraction $d_{r}^{(j)}$ of this will be supplied by imports;
 a fraction $p_{r}^{(i,j)}$ of these imports will come from country $i$. Note that since countries do not import their own exports, $p_s^{(i,i)}=0,\ \forall i$, and the expression holds trivially for $i=j$.
@@ -694,7 +713,7 @@ n_{s}^{(i,j)} = p_{s}^{(i,j)} d_{s}^{(j)} n_{s}^{(j)}
 \end{subequations}
 where, as previously, $f$ is final demand, $e$ is export demand and $n$ are investments.
 
-Along with the sector-to-sector flows given by equation \eqref{eqn:zstar}, this allows for the representation of all the flows in the present model as a single network, to which standard network analysis techniques can then be applied.
+Along with the sector-to-sector flows given by \cref{eqn:z_dagger_and_star}, this allows for the representation of all the flows in the present model as a single network, to which standard network analysis techniques can then be applied.
 
 \begin{figure}[tb]
 \centering
