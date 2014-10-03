@@ -10,6 +10,8 @@ The model has two new categories of coefficient, which gives social scientists w
 
 In providing these new coefficients and enabling the future addition to the model of poorer countries, we hope to enable inter-disciplinary work with social scientists in global fields such as international security, migration and international development.
 
+We were supported financially by the UK Engineering and Physical Sciences Research Council (EPSRC) under the grant ENFOLDing -- Explaining, Modelling, and Forecasting Global Dynamics, reference EP/H02185X/1.
+
 Kind Regards,
 Robert G. Levy
 Doctoral Researcher
