@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage[footnotesize,bf,format=hang]{caption}
-\usepackage{mathtools}
+%\usepackage{mathtools}
 \usepackage{booktabs}
 \usepackage{subfigure}
 \usepackage{textcomp} % For the cent symbol
@@ -18,12 +18,13 @@
 \usepackage{attrib}
 \usepackage{enumerate}
 %\bibliographystyle{elsarticle-harv}
-\usepackage{cleveref}
 %\nocite{*}
 % % Diagramming
 \usepackage{tikz}
 \usepackage{float}
 \usetikzlibrary{arrows,positioning,decorations}
+\usepackage{cleveref}
+\usepackage{autonum}
 % %
 \pagestyle{myheadings}
 \markright{GLOBAL TRADE MODEL BASED ON LINKED IO MODELS}
@@ -672,7 +673,7 @@ This additional assumption allows us to specify a complete system of intermediat
 \begin{equation}\label{eqn:y_rsij}
     y_{rs}^{(i,j)} = p_{r}^{(i,j)} d_{r}^{(j)} a_{rs}^{(j)} x_{s}^{(j)}
 \end{equation}
-\Cref{eqn:y_rsij} can be understood as follows:
+which can be understood as follows:
 sector $s$ in country $j$ requires an amount $a_{rs}^{(j)} x_{s}^{(j)}$ of sector $r$'s product to produce its total output;
 a fraction $d_{r}^{(j)}$ of this will be supplied by imports;
 a fraction $p_{r}^{(i,j)}$ of these imports will come from country $i$. Note that since countries do not import their own exports, $p_s^{(i,i)}=0,\ \forall i$, and the expression holds trivially for $i=j$.
