@@ -236,24 +236,23 @@ Notice that imports, $m$, are not present in this table.
 To define $m$ we now introduce the first of two new sets of coefficients. 
 
 \begin{table}
-\begin{center}
-\begin{tabular}{cp{3.7cm}p{6.5cm}}
-\toprule
-	            & description  & source in WIOD \\ \midrule
-	$f_s^{(i)}$ & final demand on sector $s$  & sum of three final consumption columns:
-                                                households, government and non-profit organisations \\
-	$n_s^{(i)}$ & investment of sector $s$ & sum of two investment columns labelled
-                                             ``gross fixed capital formation'' and
-                                             ``changes in inventories and valuables'' \\
-	$e_s^{(i)}$ & exports of sector $s$ & column labelled ``Exports'' \\
-	$z_{s,t}^{\dagger(i)}$ & intermediate demand on 
-							sector $s$ by sector $t$ \mbox{(domestic)}& top-left 35$\times$35 block, labelled ``c1--c35'' \\
-	$z_{s,t}^{*(i)}$ & intermediate demand on 
-							sector $s$ by sector $t$ \mbox{(imported)}& bottom-left 35$\times$35 block
-\\\bottomrule
-\end{tabular}
-\caption{Coefficients which define the economy of country $i$ and their source in WIOD national input-output tables. Note that domestic coefficients are labelled with a dagger superscript ($\dagger$) and import coefficients with an asterisk (*).}\label{tbl:cvars}
-\end{center}
+    \centering
+    \caption{Coefficients which define the economy of country $i$ and their source in WIOD national input-output tables. Note that domestic coefficients are labelled with a dagger superscript ($\dagger$) and import coefficients with an asterisk (*).}\label{tbl:cvars}
+    \begin{tabular}{cp{3.7cm}p{6.5cm}}
+        \toprule
+        & description  & source in WIOD \\ \midrule
+        $f_s^{(i)}$ & final demand on sector $s$  & sum of three final consumption columns:
+        households, government and non-profit organisations \\
+        $n_s^{(i)}$ & investment of sector $s$ & sum of two investment columns labelled
+        ``gross fixed capital formation'' and
+        ``changes in inventories and valuables'' \\
+        $e_s^{(i)}$ & exports of sector $s$ & column labelled ``Exports'' \\
+        $z_{s,t}^{\dagger(i)}$ & intermediate demand on 
+        sector $s$ by sector $t$ \mbox{(domestic)}& top-left 35$\times$35 block, labelled ``c1--c35'' \\
+        $z_{s,t}^{*(i)}$ & intermediate demand on 
+        sector $s$ by sector $t$ \mbox{(imported)}& bottom-left 35$\times$35 block
+        \\\bottomrule
+    \end{tabular}
 \end{table}
 
 \subsubsection*{Import ratios}\label{sec:importratios}
@@ -366,6 +365,9 @@ These four groups of coefficients are either calculated from the NIOTs provided 
 \Cref{tbl:the_four_things} summarises the four groups of coefficients and the way in which they are set from data.
 \begin{table}
     \centering
+    \caption{The four groups of fixed coefficients in the model, and their construction from data.
+    All other flows, including imports and exports, are derived from these coefficients  mathematically.}
+    \label{tbl:the_four_things}
     \begin{tabular}{lp{8cm}}
         \toprule
     Final demand &  $f_s$ quantity of a product consumed by the public and the government of a
@@ -383,9 +385,6 @@ These four groups of coefficients are either calculated from the NIOTs provided 
     \cref{eqn:importpropensities}.\\
     \bottomrule
     \end{tabular}
-    \caption{The four groups of fixed coefficients in the model, and their construction from data.
-    All other flows, including imports and exports, are derived from these coefficients  mathematically.}
-    \label{tbl:the_four_things}
 \end{table}
 
 
