@@ -602,20 +602,20 @@ To investigate further, we split the significance measure, $\eta$, into foreign 
 
 \begin{align}
 \eta_s^{*(i)} & = 
-	\sum_{j \neq i} \sum_r \Delta_{s}^{(i)} x_{r}^{(j)}\nonumber \\
+	\sum_{j \neq i} \sum_r \Delta_{s}^{(i)} x_{r}^{(j)} \\
 \eta^{*(i)} & = 
 	\frac{\sum_s \eta_s^{*(i)}}{s}
 \end{align}
 and
 \begin{align}
 \eta_s^{\dagger(i)} & = 
-	\sum_r \Delta x_{sr}^{(ii)}\nonumber \\
+	\sum_r \Delta x_{sr}^{(ii)} \\
 \eta^{\dagger(i)} & = 
 	\frac{\sum_s \eta_s^{\dagger(i)}}{s}
 \end{align}
 Notice that this does indeed split $\eta$ into precisely two parts, as:
 \begin{equation}
-\eta^{(i)} = \eta^{*(i)} + \eta^{\dagger(i)}\nonumber
+\eta^{(i)} = \eta^{*(i)} + \eta^{\dagger(i)}
 \end{equation}
 Figure \ref{fig:countries_domestic_vs_foreign} shows how the average response across all sectors divides between domestic response, $\eta_s^{\dagger}$, and foreign response\footnote{It should be noted here that the `rest of the world' (RoW) is not included in this analysis. Thus ``foreign'' here refers only to the countries explicitly modelled. According to \textcite{streicher_whither_2012}, the 40 WIOD countries cover 85\% of the global economy, so the effect of excluding RoW should not be too large.}, $\eta_s^{*}$, for each country. 
 An OLS regression line has been added to the plot.
