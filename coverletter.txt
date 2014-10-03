@@ -1,0 +1,17 @@
+Dear Professor Partridge,
+
+please consider the attached paper “A global inter-country economic model based on linked input-output models” for publication in the Journal of Regional Science.
+
+The paper contributes to the global economic modelling literature which has recently become dominated by multi-region input-output (MRIO) models. In 2013, three such global MRIO models were published and this has created a great deal of new interest in the field.
+
+However, we think that these models favour mathematical elegance over extensibility and flexibility. We therefore present a model which seeks to do more than the standard demand-driven input-output multiplier analysis.
+
+The model has two new categories of coefficient, which gives social scientists who wish to use it in their modelling work more ways to interact with the model. Additionally, the model focuses on coefficient parsimony, to facilitate future mathematical estimation of the economic structures of the many non-OECD countries which do not publish input-output data.
+
+In providing these new coefficients and enabling the future addition to the model of poorer countries, we hope to enable inter-disciplinary work with social scientists in global fields such as international security, migration and international development.
+
+Kind Regards,
+Robert G. Levy
+Doctoral Researcher
+Centre for Advanced Spatial Analysis
+UCL
